@@ -16,10 +16,10 @@ import { processSlot } from '../../../utils/processSlot.js';
 
 export const box = (props) => {
     const {
-        attrs = attrs ?? ``, 
-        cxs = cxs ?? '',
+        attrs = ` ${attrs}` ?? ``, 
+        cxs = ` ${cxs}` ?? '',
         slot = processSlot(slot) ?? '',
     } = props;
 
-    return `<div class='generic${cxs}'${attrs}>${slot}</div>`;
+    return `<div class="box${cxs}"${attrs}>${slot}</div>`;
 }

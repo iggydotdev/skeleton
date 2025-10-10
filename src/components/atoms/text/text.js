@@ -1,7 +1,8 @@
-import { processSlot } from '../../utils/processSlot.js';
+import { processSlot } from '../../../utils/processSlot.js';
 
 /**
  * @typedef {Object} textProps
+ * @property {string} is - The HTML tag to use, e.g., 'p', 'span', 'h1'
  * @property {string} attrs - An attributes property
  * @property {string} cxs - Extra classes property
  * @property {string | Array<string>} slot - string or array of strings property
@@ -16,10 +17,11 @@ import { processSlot } from '../../utils/processSlot.js';
 
 export const text = (props) => {
     const {
-        attrs = attrs ?? ``, 
-        cxs = cxs ?? '',
+        is,
+        attrs = ` ${attrs}` ?? ``, 
+        cxs = ` ${cxs}` ?? '',
         slot = processSlot(slot) ?? '',
     } = props;
 
-    return `<div class='generic${cxs}'${attrs}>${slot}</div>`;
+    return `<${is} class="text${cxs}"${attrs}>${slot}</${is}>`;
 }
