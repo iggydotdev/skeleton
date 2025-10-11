@@ -2,6 +2,7 @@ import { processSlot } from '../../../utils/processSlot.js';
 
 /**
  * @typedef {Object} linkProps
+ * @property {string} url - The URL the link points to
  * @property {string} attrs - An attributes property
  * @property {string} cxs - Extra classes property
  * @property {string | Array<string>} slot - string or array of strings property
@@ -14,12 +15,11 @@ import { processSlot } from '../../../utils/processSlot.js';
  * @returns {string}
  */
 
-export const link = (props) => {
-    const {
-        attrs = attrs ?? ``, 
-        cxs = cxs ?? '',
-        slot = processSlot(slot) ?? '',
-    } = props;
-
-    return `<div class='generic${cxs}'${attrs}>${slot}</div>`;
+export const link = ({url, attrs, cxs, slot}) => {
+    
+    attrs = ` ${attrs}` ?? ``;
+    cxs = ` ${cxs}` ?? '';
+    slot = processSlot(slot) ?? '';
+    
+    return `<a href="${url}" class="link${cxs}"${attrs}>${slot}</a>`;
 }

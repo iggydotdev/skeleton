@@ -1,9 +1,9 @@
 import { accordion } from './index.js';
 
 const test = () => {
-    const actual = accordion({ /* props go here */  });
-    const expected = '...expected value goes here...';
-    return actual === expected
+    const actual = accordion({titleSlot: 'Accordion Title', detailsSlot: 'Accordion Details', cxs: ' custom-accordion', attrs: ' id="my-accordion"'});
+    const expected = '<details class="accordion custom-accordion" id="my-accordion"><summary>Accordion Title</summary>Accordion Details</details>';
+    return actual === expected? console.log(actual) || true : console.error({actual, expected}) || false;
 };
 
 test();

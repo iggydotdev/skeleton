@@ -14,12 +14,9 @@ import { processSlot } from '../../../utils/processSlot.js';
  * @returns {string}
  */
 
-export const input = (props) => {
-    const {
-        attrs = attrs ?? ``, 
-        cxs = cxs ?? '',
-        slot = processSlot(slot) ?? '',
-    } = props;
+export const input = ({ type, cxs, attrs }) => {
+    attrs = ` ${attrs}` ?? ``; 
+    cxs = ` ${cxs}` ?? '';
 
-    return `<div class='generic${cxs}'${attrs}>${slot}</div>`;
+    return `<input type="${type}" class="input${cxs}"${attrs}/>`;
 }

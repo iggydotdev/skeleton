@@ -14,12 +14,11 @@ import { processSlot } from '../../../utils/processSlot.js';
  * @returns {string}
  */
 
-export const picture = (props) => {
-    const {
-        attrs = attrs ?? ``, 
-        cxs = cxs ?? '',
-        slot = processSlot(slot) ?? '',
-    } = props;
-
-    return `<div class='generic${cxs}'${attrs}>${slot}</div>`;
+export const picture = ({attrs, cxs, slot}) => {
+    
+    attrs = ` ${attrs}` ?? ``;
+    cxs = ` ${cxs}` ?? '';
+    slot = processSlot(slot) ?? '';
+    
+    return `<picture class="picture${cxs}"${attrs}>${slot}</picture>`;
 }

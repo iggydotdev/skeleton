@@ -2,6 +2,7 @@ import { processSlot } from '../../../utils/processSlot.js';
 
 /**
  * @typedef {Object} buttonProps
+ * @property {string} type - The button type, e.g., 'button', 'submit', 'reset'
  * @property {string} attrs - An attributes property
  * @property {string} cxs - Extra classes property
  * @property {string | Array<string>} slot - string or array of strings property
@@ -14,12 +15,16 @@ import { processSlot } from '../../../utils/processSlot.js';
  * @returns {string}
  */
 
-export const button = (props) => {
-    const {
-        attrs = attrs ?? ``, 
-        cxs = cxs ?? '',
-        slot = processSlot(slot) ?? '',
-    } = props;
+export const button = ({
+        type = 'button',
+        attrs, 
+        cxs,
+        slot
+    }) => {
 
-    return `<div class='generic${cxs}'${attrs}>${slot}</div>`;
+    attrs = ` ${attrs}` ?? ``;
+    cxs = ` ${cxs}` ?? '';
+    slot = processSlot(slot) ?? '';
+
+    return `<button type="${type}" class="btn${cxs}"${attrs}>${slot}</button>`;
 }

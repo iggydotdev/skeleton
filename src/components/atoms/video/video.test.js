@@ -1,9 +1,10 @@
 import { video } from './index.js';
+import { source } from '../source/index.js';
 
 const test = () => {
-    const actual = video({ /* props go here */  });
-    const expected = '...expected value goes here...';
-    return actual === expected
+    const actual = video({ attrs: 'controls id="video-player"', cxs: 'custom-video', slot: [source({ type: 'video', srcset: 'video.mp4', attrs: 'controls id="video-source"', cxs: 'custom-video' })] });
+    const expected = '<video class="video custom-video" controls id="video-player"><source srcset="video.mp4" class="video-src custom-video" controls id="video-source"/></video>';
+    return actual === expected? console.log(actual) || true : console.error({actual, expected}) || false;
 };
 
 test();
