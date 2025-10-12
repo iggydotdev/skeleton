@@ -22,8 +22,8 @@ export const button = ({
         slot
     }) => {
 
-    attrs = ` ${attrs}` ?? ``;
-    cxs = ` ${cxs}` ?? '';
+    attrs = attrs? ` ${attrs}` : ``;
+    cxs = cxs? ` ${cxs}` : '';
     slot = processSlot(slot) ?? '';
 
     return `<button type="${type}" class="btn${cxs}"${attrs}>${slot}</button>`;

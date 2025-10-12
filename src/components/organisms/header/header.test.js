@@ -1,0 +1,9 @@
+import { header } from './index.js';
+
+const test = () => {
+    const actual = header({ attrs: 'data-test="header"', cxs: 'custom-header', slot: '<h1 class="header-title">This is the header</h1>' });
+    const expected = '<header class="header custom-header" data-test="header"><h1 class="header-title">This is the header</h1></header>';
+    return actual === expected? console.log(actual) || true : console.error({actual, expected}) || false;
+};
+
+test();

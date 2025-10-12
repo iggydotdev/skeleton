@@ -16,8 +16,8 @@ import { processSlot } from '../../../utils/processSlot.js';
 
 export const componentName = ({attrs, cxs, slot}) => {
     
-    attrs = ` ${attrs}` ?? ``;
-    cxs = ` ${cxs}` ?? '';
+    attrs = attrs? ` ${attrs}` : ``;
+    cxs = cxs? ` ${cxs}` : '';
     slot = processSlot(slot) ?? '';
     
     return `<div class="generic${cxs}"${attrs}>${slot}</div>`;

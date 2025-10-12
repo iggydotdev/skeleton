@@ -15,8 +15,8 @@ import { processSlot } from '../../../utils/processSlot.js';
  */
 
 export const image = ({src, attrs, cxs, slot}) => {;
-    attrs = ` ${attrs}` ?? ``;
-    cxs = ` ${cxs}` ?? '';
+    attrs = attrs? ` ${attrs}` : ``;
+    cxs = cxs? ` ${cxs}` : '';
     
     return `<img src="${src}" class="image${cxs}"${attrs}/>`;
 }   

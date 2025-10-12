@@ -16,7 +16,7 @@ import { processSlot } from '../../../utils/processSlot.js';
 export const divider = ({attrs, cxs}) => {
  
     attrs = `  ${attrs}` ?? ``;
-    cxs = ` ${cxs}` ?? '';
+    cxs = cxs? ` ${cxs}` : '';
 
     return `<hr class="divider${cxs}"${attrs}/>`;
 }

@@ -18,8 +18,8 @@ import { processSlot } from '../../../utils/processSlot.js';
 
 export const source = ({type, attrs, cxs, srcset, src}) => {
     
-    attrs = ` ${attrs}` ?? ``;
-    cxs = ` ${cxs}` ?? '';
+    attrs = attrs? ` ${attrs}` : ``;
+    cxs = cxs? ` ${cxs}` : '';
 
     if (type === 'video') {
         return `<source srcset="${srcset}" class="video-src${cxs}"${attrs}/>`;

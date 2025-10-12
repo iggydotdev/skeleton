@@ -15,8 +15,8 @@ import { processSlot } from '../../../utils/processSlot.js';
  */
 
 export const input = ({ type, cxs, attrs }) => {
-    attrs = ` ${attrs}` ?? ``; 
-    cxs = ` ${cxs}` ?? '';
+    attrs = attrs? ` ${attrs}` : ``; 
+    cxs = cxs? ` ${cxs}` : '';
 
     return `<input type="${type}" class="input${cxs}"${attrs}/>`;
 }

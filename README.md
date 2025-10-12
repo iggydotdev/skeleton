@@ -2,7 +2,7 @@
 
 How to build  a new component library/framework?
 
-1/ Library: 
+1/ Library (Skeleton)
 Atomic Design
 JS only => No TS (just JSdocs my friend...)
 That's JUST the library of components
@@ -12,7 +12,7 @@ templates potentially in files (BONES)
 (1.x) => Storybook like to see components live
 
 
-2 / Framework
+2 / Framework (Flesh)
 new URLParams
 node/deno/bun/...
 SSR/ISR/SSG

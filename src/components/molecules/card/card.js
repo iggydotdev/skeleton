@@ -21,8 +21,8 @@ import { processSlot } from '../../../utils/processSlot.js';
 
 export const card = ({attrs, cxs, slot, headerSlot, mediaSlot, linkSlot, contentSlot}) => {
     
-    attrs = ` ${attrs}` ?? ``;
-    cxs = ` ${cxs}` ?? '';
+    attrs = attrs? ` ${attrs}` : ``;
+    cxs = cxs? ` ${cxs}` : '';
     slot = processSlot(slot) ?? '';
     
     headerSlot = processSlot(headerSlot) ?? '';

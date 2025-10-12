@@ -15,8 +15,8 @@ import { processSlot } from '../../../utils/processSlot.js';
 
 export const textarea = ({attrs, cxs}) => {
     
-    attrs = ` ${attrs}` ?? ``;
-    cxs = ` ${cxs}` ?? '';
+    attrs = attrs? ` ${attrs}` : ``;
+    cxs = cxs? ` ${cxs}` : '';
     
     return `<textarea class="textarea${cxs}"${attrs}/>`;
 }

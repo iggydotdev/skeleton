@@ -17,8 +17,8 @@ import { processSlot } from '../../../utils/processSlot.js';
 
 export const video = ({src, attrs, cxs, slot}) => {
     src = src? ` ${src}`:``;
-    attrs = ` ${attrs}` ?? ``;
-    cxs = ` ${cxs}` ?? '';
+    attrs = attrs? ` ${attrs}` : ``;
+    cxs = cxs? ` ${cxs}` : '';
     slot = processSlot(slot) ?? '';
     
     return `<video${src} class="video${cxs}"${attrs}>${slot}</video>`;
