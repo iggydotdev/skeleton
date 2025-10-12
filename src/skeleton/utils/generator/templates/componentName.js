@@ -1,4 +1,4 @@
-import { processSlot } from '../../../utils/processSlot.js';
+import { processSlot } from '../../processSlot.js';
 
 /**
  * @property {string} attrs - An attributes property
@@ -7,9 +7,9 @@ import { processSlot } from '../../../utils/processSlot.js';
  * @returns {string} - Description of what the function returns
  */
 
-export const picture = ({attrs, cxs, slot}) => {
+export const componentName = ({attrs, cxs, slot}) => {
     attrs = attrs? ` ${attrs}` : ``;
     cxs = cxs? ` ${cxs}` : '';
     slot = processSlot(slot) ?? '';
-    return `<picture class="picture${cxs}"${attrs}>${slot}</picture>`;
+    return `<div class="generic${cxs}"${attrs}>${slot}</div>`;
 }

@@ -1,4 +1,4 @@
-import { processSlot } from '../../../utils/processSlot.js';
+import { processSlot } from '../../../../utils/processSlot.js';
 
 /**
  * @property {string} attrs - An attributes property
@@ -7,10 +7,9 @@ import { processSlot } from '../../../utils/processSlot.js';
  * @returns {string} - Description of what the function returns
  */
 
-
-export const footer = ({attrs, cxs, slot}) => {
+export const box = ({attrs, cxs, slot}) => {
     attrs = attrs? ` ${attrs}` : ``;
     cxs = cxs? ` ${cxs}` : '';
-    slot = processSlot(slot) ?? '';    
-    return `<footer class="footer${cxs}"${attrs}>${slot}</footer>`;
+    slot = processSlot(slot) ?? '';
+    return `<div class="box${cxs}"${attrs}>${slot}</div>`;
 }

@@ -1,5 +1,5 @@
 import { box } from '../../atoms/index.js';
-import { processSlot } from '../../../utils/processSlot.js';
+import { processSlot } from '../../../../utils/processSlot.js';
 
 /**
  * @typedef {Object} cardProps

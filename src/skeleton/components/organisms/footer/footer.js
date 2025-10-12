@@ -1,5 +1,4 @@
-import { processSlot } from '../../../utils/processSlot.js';
-import { box } from '../../atoms/index.js';
+import { processSlot } from '../../../../utils/processSlot.js';
 
 /**
  * @property {string} attrs - An attributes property
@@ -8,13 +7,10 @@ import { box } from '../../atoms/index.js';
  * @returns {string} - Description of what the function returns
  */
 
-export const hero = ({attrs, cxs, slot}) => {
+
+export const footer = ({attrs, cxs, slot}) => {
     attrs = attrs? ` ${attrs}` : ``;
     cxs = cxs? ` ${cxs}` : '';
-    slot = processSlot(slot) ?? '';
-    return box({
-        attrs: `role="hero"${attrs}`,
-        cxs: `hero${cxs}`,
-        slot: slot
-    });
+    slot = processSlot(slot) ?? '';    
+    return `<footer class="footer${cxs}"${attrs}>${slot}</footer>`;
 }
