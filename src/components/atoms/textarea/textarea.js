@@ -1,22 +1,12 @@
-import { processSlot } from '../../../utils/processSlot.js';
 
 /**
- * @typedef {Object} textareaProps
  * @property {string} attrs - An attributes property
  * @property {string} cxs - Extra classes property
  * @returns {string} - Description of what the function returns
  */
 
-/**
- * 
- * @param {textareaProps} props 
- * @returns {string}
- */
-
-export const textarea = ({attrs, cxs}) => {
-    
+export const textarea = ({attrs, cxs}) => { 
     attrs = attrs? ` ${attrs}` : ``;
     cxs = cxs? ` ${cxs}` : '';
-    
     return `<textarea class="textarea${cxs}"${attrs}/>`;
 }

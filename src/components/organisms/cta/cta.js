@@ -9,17 +9,9 @@ import { box } from '../../atoms/index.js';
  * @returns {string} - Description of what the function returns
  */
 
-/**
- * 
- * @param {ctaProps} props 
- * @returns {string}
- */
-
-export const cta = ({attrs, cxs, slot}) => {
-    
+export const cta = ({attrs, cxs, slot}) => { 
     attrs = attrs? ` ${attrs}` : ``;
     cxs = cxs? ` ${cxs}` : '';
     slot = processSlot(slot) ?? '';
-    
     return box({attrs: `role="cta"${attrs}`, cxs: `cta${cxs}`, slot}); // Example: <box role="cta" class="box cta custom-classes">...</box>`;
 }

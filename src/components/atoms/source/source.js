@@ -1,7 +1,5 @@
-import { processSlot } from '../../../utils/processSlot.js';
 
 /**
- * @typedef {Object} sourceProps
  * @property {string} type - Type of source, either 'image' or 'video'
  * @property {string} [srcset] - The source set URL of the video (for video type)
  * @property {string} [src] - The source URL of the image (for image type)
@@ -10,14 +8,7 @@ import { processSlot } from '../../../utils/processSlot.js';
  * @returns {string} - Description of what the function returns
  */
 
-/**
- * 
- * @param {sourceProps} props 
- * @returns {string}
- */
-
 export const source = ({type, attrs, cxs, srcset, src}) => {
-    
     attrs = attrs? ` ${attrs}` : ``;
     cxs = cxs? ` ${cxs}` : '';
 
