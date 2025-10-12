@@ -16,3 +16,34 @@ templates potentially in files (BONES)
 new URLParams
 node/deno/bun/...
 SSR/ISR/SSG
+
+TODOs:
+
+Add:
+
+Organisms:
+forms
+contentBlocks
+carousel?
+
+
+Molecules:
+formInput
+radio Group
+tabs
+tables?
+pagination
+
+
+Templates/ Routes
+Homepage finish
+Article page
+Search results Page (filters somewhere + pagination)
+Product detail page
+Product listing page
+
+
+We also need client side js for interactivity. Focus first on tabs.
+window.skeleton.tabs
+needs to be a singleton
+
