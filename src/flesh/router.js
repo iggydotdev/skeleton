@@ -3,7 +3,7 @@ export const router = (url, routes) => {
     const newURL = new URL(url);
     const query = Object.fromEntries(newURL.searchParams.entries());
     for (const route of routes) {
-        const match = route.pattern.exec(url);
+        const match = route.pattern.exec(new URL(url).href);
         if (match) {
             // if (typeof route.handler === 'function') {
             //     return route.handler(match);

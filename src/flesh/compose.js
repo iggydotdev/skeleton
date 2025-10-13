@@ -24,7 +24,7 @@ const renderComponent = (component, matchedComponent) => {
                         return child;
                     }
                     
-                    return compose([child], params, query);
+                    return compose([child]);
                 }).join('\n    '));
             }
         } else {
@@ -38,7 +38,7 @@ const renderComponent = (component, matchedComponent) => {
 }
 
 
-export const compose = (components = [], params = {}, query = {}) => {
+export const compose = (components = []) => {
     return components.map(component => {
         let matchedComponent;
         component.type = component.type.toLowerCase();
