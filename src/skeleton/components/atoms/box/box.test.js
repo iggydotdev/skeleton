@@ -1,9 +1,9 @@
 import { box } from './index.js';
 
-const test = () => {
-    const actual = box({slot: 'Content', cxs: ' customClass', attrs: ''});
+export const test = () => {
+    const actual = box({slot: 'Content', cxs: 'customClass'});
     const expected = '<div class="box customClass">Content</div>';
-    return actual === expected? console.log(actual) || true : console.error({actual, expected}) || false;
+    return actual === expected? true : console.error({actual, expected}) || false;
 };
 
-console.log(test());
+test();

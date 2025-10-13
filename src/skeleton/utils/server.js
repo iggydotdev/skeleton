@@ -22,7 +22,7 @@ import { fileURLToPath } from 'node:url';
 const server = http.createServer((req, res) => {
   if (req.url !== '/') {
     const [root,type,component] = req.url.split('/');
-    const test = import(fileURLToPath(new URL(`../components/${type}s/${component}/${component}.show.js`, import.meta.url))).then((module) => {
+    export const test import(fileURLToPath(new URL(`../components/${type}s/${component}/${component}.show.js`, import.meta.url))).then((module) => {
       const show = module.show();
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.end(show);
