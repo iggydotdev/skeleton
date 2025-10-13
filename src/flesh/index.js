@@ -10,7 +10,7 @@ const server = http.createServer((req, res) => {
     const url = new URL(req.url, `http://${req.headers.host}`);
     const route = router(url, routes);
     if (route) {
-        const content = compose(route.components, route.params, route.query,);
+        const content = compose(route.components);
         console.log('Composed content:', content);
         const html = renderPage(content, route.meta);
         res.writeHead(200, { 'Content-Type': 'text/html' });

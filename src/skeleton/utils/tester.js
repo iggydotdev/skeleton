@@ -19,17 +19,14 @@ const tester = () => {
                 const components = fs.readdirSync(folder).filter(component => component !== 'index.js');
                 components.forEach(component => {
                     try {
-                        const testFile = fs.readdirSync(path.join(`/${folder}/${component}`)).filter(file=> file.includes('test.js'))[0];
+                        const testFile = fs.readdirSync(path.join(folder,component)).filter(file=> file.includes('test.js'))[0];
                         console.log(testFile);
-                        const test = import(fileURLToPath(new URL(path.join(`${folder}/${component}/${testFile}`), import.meta.url))).then((module) => {
+                        const testPath = path.join(folder, component, testFile)
+                        const test = import(fileURLToPath(new URL(testPath), import.meta.url)).then((module) => {
                             const res = module.test();
-                            if (res) {
-                                console.log(`${testFile}: passed`);
-                            } else {
-                                console.error(`${testFile}: failed`);
-                            }
+                            console.log(`${testFile}: ${res ? 'PASS' : 'FAIL'}`);
                         }).catch((err)=> {
-                            console.log(`Error in: ${folder}/${component}/${testFile}`, err)
+                            console.log(`Error in: ${testPath}`, err)
                         })
 
                     } catch (err) {

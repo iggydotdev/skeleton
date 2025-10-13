@@ -46,7 +46,7 @@ export const card = ({attrs, cxs, slot, headerSlot, mediaSlot, linkSlot, content
     }
 
     return box({
-        type: 'div',
+        is: 'div',
         cxs: `card${cxs}`,
         attrs: attrs.trim(),
         slot: slot
