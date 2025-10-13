@@ -12,7 +12,7 @@ Object.entries(atoms).forEach(([name, fn]) => atomsRegistry.set(name, fn));
 Object.entries(molecules).forEach(([name, fn]) => moleculesRegistry.set(name, fn));
 Object.entries(organisms).forEach(([name, fn]) => organismsRegistry.set(name, fn));
 
-const renderComponent = (matchedComponent) => {
+const renderComponent = (component, matchedComponent) => {
     if (matchedComponent) { 
         let slotContent = ''; 
         if (Array.isArray(component.props.slot)) {
@@ -50,6 +50,6 @@ export const compose = (components = [], params = {}, query = {}) => {
             // component.type === 'atom'
             matchedComponent = atoms[component.name];
         }
-        return renderComponent(matchedComponent);
+        return renderComponent(component, matchedComponent);
     }).join('\n    ');
 }

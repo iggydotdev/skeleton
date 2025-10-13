@@ -1,4 +1,4 @@
-import { processSlot } from '../../../../utils/processSlot.js';
+import { processSlot } from '../../../utils/processSlot.js';
 import { box } from '../../atoms/index.js';
 
 /**

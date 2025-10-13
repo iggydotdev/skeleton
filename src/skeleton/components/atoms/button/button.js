@@ -1,4 +1,4 @@
-import { processSlot } from '../../../../utils/processSlot.js';
+import { processSlot } from '../../../utils/processSlot.js';
 
 /**
  * @property {string} type - The button type, e.g., 'button', 'submit', 'reset'

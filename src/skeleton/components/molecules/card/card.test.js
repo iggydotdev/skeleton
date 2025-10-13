@@ -24,3 +24,10 @@ const standardCard = () => {
 //WAIT
 
 standardCard();
+
+const test = () => {
+    customCard();
+    standardCard();
+}
+
+test();

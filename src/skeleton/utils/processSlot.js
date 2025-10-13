@@ -4,6 +4,7 @@
  * @returns string
  */
 export const processSlot = (slot) => {
+    if (!slot) return '';
     if (Array.isArray(slot)) {
         return slot.join('');
     }
