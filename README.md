@@ -300,7 +300,7 @@ const html = compose(components);
 - [ ] Plugin system
 - [ ] Middleware support
 - [ ] CLI tool with scaffolding
-- [ ] Storybook integration
+- [ ] Develop a component viewer (storybook-like) integration
 
 ## License
 
