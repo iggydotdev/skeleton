@@ -1,3 +1,4 @@
+import { normaliseClasses } from '../../../utils/normaliseClasses.js';
 import { processSlot } from '../../../utils/processSlot.js';
 
 /**
@@ -12,7 +13,7 @@ import { processSlot } from '../../../utils/processSlot.js';
 export const box = ({is, attrs, cxs, slot}) => {
     is = is?? 'div';
     attrs = attrs? ` ${attrs}` : ``;
-    cxs = cxs? ` ${cxs}` : '';
+    const classes = normaliseClasses(`box ${cxs || ""}`);
     slot = processSlot(slot) ?? '';
-    return `<${is} class="box${cxs}"${attrs}>${slot}</${is}>`;  
+    return `<${is} class="${classes}"${attrs}>${slot}</${is}>`;  
 }
