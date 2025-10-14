@@ -256,12 +256,13 @@ const route = router(new URL('http://localhost/'), routes);
 
 ### Custom Styling
 
-Since there's no CSS, add styles via attrs:
+Since there's no CSS, add styles via attrs or cxs class names ( you will need the global stylesheet. See next):
 
 ```javascript
 button({
     slot: 'Styled Button',
-    attrs: 'style="background: blue; color: white; padding: 10px;"'
+    attrs: 'style="background: blue; color: white; padding: 10px;"',
+    cxs: 'btn-blue'
 })
 ```
 
