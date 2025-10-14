@@ -54,7 +54,7 @@ Visit `http://localhost:3000`
 ### 2. Build Static Site (SSG)
 
 ```bash
-node src/build/ssg-cli.js public
+node src/flesh/utils/build/index.js public
 ```
 
 Generates HTML files in `public/` directory.
