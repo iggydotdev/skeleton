@@ -1,0 +1,15 @@
+{
+  "name": "skeleton",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Zero-dependency component library and SSR/SSG framework",
+  "main": "src/skeleton/components/atoms/index.js",
+  "scripts": {
+    "dev": "node src/flesh/index.js",
+    "build": "node src/flesh/utils/build/index.js public",
+    "test": "node src/skeleton/utils/tester.js",
+    "generate": "node src/skeleton/utils/generator/index.js"
+  },
+  "keywords": ["components", "ssr", "ssg", "atomic-design"],
+  "license": "MIT"
+}
