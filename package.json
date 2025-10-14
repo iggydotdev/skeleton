@@ -6,6 +6,7 @@
   "main": "src/skeleton/components/atoms/index.js",
   "scripts": {
     "dev": "node src/flesh/index.js",
+    "dev:watch": "node --watch src/flesh/index.js",
     "build": "node src/flesh/utils/build/index.js public",
     "test": "node src/skeleton/utils/tester.js",
     "generate": "node src/skeleton/utils/generator/index.js"
