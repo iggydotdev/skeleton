@@ -4,36 +4,58 @@ import path from 'node:path';
 // Local imports
 import { compose } from '../../compose.js';
 import { renderPage } from '../../renderPage.js';
-import { router } from '../../router.js';
-import { routes } from '../../routes.js';
-
 
 /**
- * 
- * @param {route} route 
+ * Generate a static route to HTML file
+ * @param {Object} route - Route object with pattern, components, meta
+ * @param {string} outputDir - Output directory (default: public)
+ * @returns {Object} - Generated file info
  */
 
-export const generateRoute = async (route) => {
-    const pattern = route.pattern
+export const generateRoute = async (route, outputDir='public') => {
+    const pathname = route.pattern.pathname
 
     // skip for now dynamic routes
-    const filePath = path.join(`public`, pattern);
-    const dirPath = path.dirname(filePath);
-
-    if (!fs.existsSync(dirPath)) {
-        fs.mkdirSync(dirPath, {recursive: true})
+    // Skip routes without components
+    if (!route.components || !Array.isArray(route.components)) {
+        console.warn(`⚠️  Route "${route.name}" has no components, skipping`);
+        return null;
     }
+    try {
+        // Build file path
+        let filePath = pathname;
+        if (filePath === '/') {
+            filePath = 'index.html';
+        } else if (!filePath.endsWith('.html')) {
+            filePath = `${filePath}/index.html`;
+        }
+        
+        const fullPath = path.join(outputDir, filePath);
+        const dirPath = path.dirname(fullPath);
 
-    const content = compose(route.components);
-    const html = renderPage(content, route.meta);
+        // Ensure directory exists
+        if (!fs.existsSync(dirPath)) {
+            fs.mkdirSync(dirPath, { recursive: true });
+        }
 
-    fs.writeFileSync(filePath, html, `utf8`);
+        // Compose components to HTML
+        const content = compose(route.components);
+        
+        // Render full page with meta tags
+        const html = renderPage(content, route.meta || {});
 
-    // this returns generated
-    return ({
-        path: pattern,
-        file: filePath,
-    })
+        // Write file
+        fs.writeFileSync(fullPath, html, 'utf8');
+
+        console.log(`✓ ${pathname} → ${filePath}`);
+
+        return {
+            path: pathname,
+            file: fullPath,
+        };
+    } catch (error) {
+        throw new Error(`Failed to generate ${route.name}: ${error.message}`);
+    }
 
 
 

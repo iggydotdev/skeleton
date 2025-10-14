@@ -51,7 +51,7 @@ node src/flesh/index.js
 
 Visit `http://localhost:3000`
 
-### 2. Build Static Site (SSG) - COMING SOON!
+### 2. Build Static Site (SSG)
 
 ```bash
 node src/build/ssg-cli.js public
@@ -100,6 +100,43 @@ button({ type: 'submit', slot: 'Click Me', cxs: 'primary' });
     }
 }
 ```
+
+## Component Generator
+
+Generate new components quickly using the built-in generator:
+
+```bash
+# Create an atom
+node src/skeleton/utils/generator/index.js atom my-button
+
+# Create a molecule
+node src/skeleton/utils/generator/index.js molecule my-card
+
+# Create an organism
+node src/skeleton/utils/generator/index.js organism my-header
+```
+
+The generator creates:
+- `index.js` - Component exports
+- `componentName.js` - Component implementation
+- `componentName.test.js` - Unit tests
+
+Example output structure:
+```
+components/
+└── atoms/
+    └── my-button/
+        ├── index.js
+        ├── my-button.js
+        └── my-button.test.js
+```
+
+### Generator Options
+
+- **atom** - Create basic element (button, text, input...)
+- **molecule** - Create compound component (card, form-group...)
+- **organism** - Create page section (header, footer...)
+
 
 ### Component Props API
 

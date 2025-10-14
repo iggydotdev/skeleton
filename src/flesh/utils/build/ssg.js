@@ -3,18 +3,31 @@ import fs from 'node:fs';
 
 import { routes } from '../../routes.js';
 import { generateRoute } from './generateRoute.js';
+import { generateDynamicRoute } from './generateDynamicRoute.js';
 
-const generated = [];
-const errors = [];
+export const build = async (outputDir = 'public') => {
+    const generated = [];
+    const errors = [];
 
-export const build = async (outputDir) => {
     if (!fs.existsSync(outputDir)) {
         fs.mkdirSync(outputDir, {recursive: true});
     }
 
-    for(const route in routes) {
+    for(const route of routes) {
         try {
-            await generateRoute(route);
+            if (route.pattern.pathname.includes(':')) {
+                const data = [] //await route.getData();
+                const results = await generateDynamicRoute(route, data, outputDir);
+                if (results.length > 0) {
+                    generated.push(...results)
+                }
+            } else {
+                const res = await generateRoute(route,  outputDir);
+                if (res) {
+                    generated.push(res)
+                }
+            }
+
         } catch (error) {
             errors.push({route, error});
             console.error(`${route} failed: `, error);

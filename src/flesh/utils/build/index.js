@@ -4,7 +4,7 @@ import { build } from './ssg.js';
 const outputDir = 'public';
 
 build(outputDir)
-   .then(result=> process.exit(result.errors > 0?1:0))
+   .then(result=> process.exit(result.errors.legnth > 0 ?1:0))
    .catch(error => {
     console.error(error)
     process.exit(1)
