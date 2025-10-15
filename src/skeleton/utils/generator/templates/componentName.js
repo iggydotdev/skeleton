@@ -1,4 +1,4 @@
-import { processSlot } from '../../processSlot.js';
+import { processSlot } from '../../../processSlot.js';
 
 /**
  * @property {string} attrs - An attributes property

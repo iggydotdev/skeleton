@@ -15,7 +15,7 @@ export const generateDynamicRoute = async (route, dataSource, outputDir = 'publi
         const routeVariant = {
             ...route,
             pattern: { ...route.pattern, pathname },
-            components: route.template ? route.template(data) : route.components,
+            components: route.components(data),
             meta: { ...route.meta, ...data }
         };
 

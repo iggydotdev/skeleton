@@ -16,7 +16,7 @@ export const build = async (outputDir = 'public') => {
     for(const route of routes) {
         try {
             if (route.pattern.pathname.includes(':')) {
-                const data = [] //await route.getData();
+                const data = [await route.externalData()];
                 const results = await generateDynamicRoute(route, data, outputDir);
                 if (results.length > 0) {
                     generated.push(...results)

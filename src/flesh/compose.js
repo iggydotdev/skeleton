@@ -32,9 +32,9 @@ const renderComponent = (component, matchedComponent) => {
         }
         component.props.slot = slotContent;
         return matchedComponent(component.props);    
+    } else {
+        throw new Error(`Component "${component.name}" (${component.type}) not found in library.`);
     }
-    console.warn(`Component "${component.name}" (${component.type}) not found.`);
-    return null;
 }
 
 

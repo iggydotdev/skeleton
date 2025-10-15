@@ -1,22 +1,5 @@
 import http from 'node:http';
 import { fileURLToPath } from 'node:url';
-// FOR HTTPS...
-// import fs from 'fs';
-// Read the SSL certificate and private key files
-// const privateKey = fs.readFileSync('path/to/your/private.key', 'utf8');
-// const certificate = fs.readFileSync('path/to/your/certificate.crt', 'utf8');
-// const credentials = { key: privateKey, cert: certificate };
-
-// Create the HTTPS server
-// const server = https.createServer(credentials, (req, res) => {
-//   res.writeHead(200, { 'Content-Type': 'text/plain' });
-//   res.end('Hello, HTTPS World!\n');
-// });
-
-// // Listen on a secure port (e.g., 8443)
-// server.listen(8443, () => {
-//   console.log('HTTPS Server running on port 8443');
-// });
 
 // Create a local server to receive data from
 const server = http.createServer((req, res) => {

@@ -6,12 +6,10 @@ import { compose } from './compose.js';
 import { renderPage } from './renderPage.js';
 
 const server = http.createServer((req, res) => {
-    console.log('Request URL:', req.url);
     const url = new URL(req.url, `http://${req.headers.host}`);
     const route = router(url, routes);
     if (route) {
         const content = compose(route.components);
-        console.log('Composed content:', content);
         const html = renderPage(content, route.meta);
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(html);
