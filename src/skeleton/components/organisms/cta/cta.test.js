@@ -12,4 +12,4 @@ export const test = () => {
     return actual === expected? true : console.error({actual, expected}) || false;
 };
 
-test();
+;

@@ -29,4 +29,4 @@ export const test = () => {
     return customCard() && standardCard();
 }
 
-test();
+;
