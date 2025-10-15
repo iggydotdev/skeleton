@@ -20,8 +20,8 @@ const tester = () => {
                     const testFile = fs.readdirSync(path.join(folder,component)).filter(file=> file.includes('test.js'))[0];
 
                     const testPath = path.join(folder, component, testFile)
-                    import(fileURLToPath(testPath)).then((module) => {
-                        const res = module.test();
+                    import(fileURLToPath(testPath)).then(async (module) => {
+                        const res = await module.test();
                         console.log(`${testFile}: ${res ? 'PASS' : 'FAIL'}`);
                     }).catch((err)=> {
                         throw new Error(`Error in: ${testPath} - ${err.message}`);
