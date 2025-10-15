@@ -9,14 +9,14 @@ export const routes = [
         url: '/',
         meta: { title: 'Home'},
         template: 'home', // component?
-        guards: [],
+        guards: [], // TODO: Implement route guards for auth/permissions
         components: homeComponents // if template is blank, we can compose the page with components
     }, 
     {
         pattern: new URLPattern({ pathname: '/blog/:postid' }),
         meta: { title: 'Blog Post'},
         template: 'articlePage',
-        guards: [],
+        guards: [],  // TODO: Implement route guards for auth/permissions
         components: blogPostComponents,
         externalData: async () => {
            const url = 'https://yesno.wtf/api'
