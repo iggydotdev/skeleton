@@ -9,9 +9,10 @@ export const build = async (outputDir = 'public') => {
     const generated = [];
     const errors = [];
 
-    if (!fs.existsSync(outputDir)) {
-        fs.mkdirSync(outputDir, {recursive: true});
+    if (fs.existsSync(outputDir)) {
+        fs.rmSync(outputDir, { recursive: true, force: true });
     }
+    fs.mkdirSync(outputDir, { recursive: true });
 
     for(const route of routes) {
         try {

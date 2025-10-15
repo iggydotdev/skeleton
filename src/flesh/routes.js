@@ -14,9 +14,8 @@ export const routes = [
     }, 
     {
         pattern: new URLPattern({ pathname: '/blog/:postid' }),
-        template: 'blogPost',
         meta: { title: 'Blog Post'},
-        template: 'article',
+        template: 'articlePage',
         guards: [],
         components: blogPostComponents,
         externalData: async () => {
@@ -31,7 +30,7 @@ export const routes = [
                 const result = await response.json();
                 return result;
             } catch (error) {
-                console.error(error.message);
+               throw new Error(`Error to retrieve data (${url}): ${error.message}`);
             }
         }
     },

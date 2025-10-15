@@ -20,19 +20,19 @@ const tester = () => {
                     const testFile = fs.readdirSync(path.join(folder,component)).filter(file=> file.includes('test.js'))[0];
 
                     const testPath = path.join(folder, component, testFile)
-                    import(fileURLToPath(new URL(testPath, import.meta.url))).then((module) => {
+                    import(fileURLToPath(testPath)).then((module) => {
                         const res = module.test();
                         console.log(`${testFile}: ${res ? 'PASS' : 'FAIL'}`);
                     }).catch((err)=> {
-                        throw new Error(`Error in: ${testPath}`, err);
+                        throw new Error(`Error in: ${testPath} - ${err.message}`);
                     })
 
                 } catch (err) {
-                    throw new Error(`Error in ${testFile}:`, err);
+                    throw new Error(`Error in ${testFile}: ${err.message}`);
                 }
             })
         } catch (err) {
-            throw new Error (`Error reading components: `, err);
+            throw new Error (`Error reading components: ${err.message}`);
         }
     });
     
