@@ -1,4 +1,9 @@
-# Skeleton - Component Library & Framework
+# Skeleton Framework
+
+[![npm version](https://badge.fury.io/js/skeleton-framework.svg)](https://www.npmjs.com/package/skeleton-framework)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
+
 
 Skeleton is a lightweight, composition-first component library and SSR/SSG framework built with pure JavaScript and no dependencies.
 
@@ -16,20 +21,20 @@ Skeleton is a lightweight, composition-first component library and SSR/SSG frame
 
 ```
 skeleton/
-├── src/
-│   ├── skeleton/          # Component Library
-│   │   ├── components/
-│   │   │   ├── atoms/     # Basic elements (button, link, text, etc)
-│   │   │   ├── molecules/ # Combinations (card, form-group, etc)
-│   │   │   └── organisms/ # Sections (header, footer, hero, etc)
+├── src/          
+│   ├── components/           # Component Library
+│   │   │   ├── atoms/        # Basic elements (button, link, text, etc)
+│   │   │   ├── molecules/    # Combinations (card, form-group, etc)
+│   │   │   └── organisms/    # Sections (header, footer, hero, etc)
 │   │   └── utils/
-│   └── flesh/             # Framework
-│       ├── compose.js     # Component composition engine
-│       ├── router.js      # URL routing
-│       ├── routes.js      # Route definitions
-│       └── pages/         # Page templates
-└── src/build/
-    └── ssg.js            # Static site generation
+│   └── framework/            # Framework
+│       ├── compose.js        # Component composition engine
+│       ├── renderPage.js     # HTML template used to render
+│       ├── routes.js         # Route definitions
+│       ├── routes.js         # Route definitions
+│       ├── pages/            # Page templates
+│       └──utils/build/
+│                 └── ssg.js  # Static site generation
 ```
 
 ## Installation

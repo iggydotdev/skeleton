@@ -11,6 +11,34 @@
     "test": "node src/skeleton/utils/tester.js",
     "generate": "node src/skeleton/utils/generator/index.js"
   },
-  "keywords": ["components", "ssr", "ssg", "atomic-design"],
+  "keywords": [
+    "components",
+    "ssr",
+    "ssg",
+    "atomic-design",
+    "framework",
+    "zero-dependency",
+    "server-side-rendering",
+    "static-site-generator",
+    "web-components",
+    "html",
+    "no-build",
+    "vanilla-js"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": {
+    "name": "Ignacio Garcia Villanueva",
+    "email": "iggy.dev@pm.me"
+  },
+    "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iggydotdev/skeleton.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iggydotdev/skeleton/issues"
+  },
+  "homepage": "https://github.com/iggydotdev/skeleton#readme",
   "license": "MIT"
 }
