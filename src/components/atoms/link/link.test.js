@@ -5,5 +5,3 @@ export const test = () => {
     const expected = '<a href="https://example.com" class="link custom-link" target="_blank" rel="noopener noreferrer">Example</a>';
     return actual === expected? true : console.error({actual, expected}) || false;
 };
-
-;

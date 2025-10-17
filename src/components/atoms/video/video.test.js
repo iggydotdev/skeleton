@@ -6,5 +6,3 @@ export const test = () => {
     const expected = '<video class="video custom-video" controls id="video-player"><source srcset="video.mp4" class="video-src custom-video" controls id="video-source"/></video>';
     return actual === expected? true : console.error({actual, expected}) || false;
 };
-
-;

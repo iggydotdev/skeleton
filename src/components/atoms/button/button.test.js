@@ -5,5 +5,3 @@ export const test = () => {
     const expected = '<button type="submit" class="btn custom-button" id="my-button" onclick="()=>{alert(`hello`)}">Click Me</button>';
     return actual === expected? true : console.error({actual, expected}) || false;
 };
-
-;

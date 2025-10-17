@@ -5,5 +5,3 @@ export const test = () => {
     const expected = '<hr class="divider"/>';
     return actual === expected? true : console.error({actual, expected}) || false;
 };
-
-;

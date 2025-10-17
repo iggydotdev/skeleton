@@ -5,5 +5,3 @@ export const test = () => {
     const expected = '<footer class="footer custom-footer" data-test="footer"><p class="footer-text">This is the footer</p></footer>';
     return actual === expected? true : console.error({actual, expected}) || false;
 };
-
-;

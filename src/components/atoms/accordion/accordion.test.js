@@ -5,5 +5,3 @@ export const test = () => {
     const expected = '<details class="accordion custom-accordion" id="my-accordion"><summary>Accordion Title</summary>Accordion Details</details>';
     return actual === expected? true : console.error({actual, expected}) || false;
 };
-
-;

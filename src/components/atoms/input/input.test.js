@@ -5,5 +5,3 @@ export const test = () => {
     const expected = '<input type="text" class="input custom-input" placeholder="Enter text" id="text-input"/>';
     return actual === expected? true : console.error({actual, expected}) || false;
 };
-
-;

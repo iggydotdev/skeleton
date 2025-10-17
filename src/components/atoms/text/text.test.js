@@ -5,5 +5,3 @@ export const test = () => {
     const expected = `<p class="text custom-text" id="greeting">Hello, World!</p>`;
     return actual === expected? true : console.error({actual, expected}) || false;
 };
-
-;

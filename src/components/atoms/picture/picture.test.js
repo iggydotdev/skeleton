@@ -6,5 +6,3 @@ export const test = () => {
     const expected = '<picture class="picture custom-picture" id="picture-element"><source src="image.jpg" class="img-src custom-image" id="image-source"/>...slot content goes here...</picture>';
     return actual === expected? true : console.error({actual, expected}) || false;
 };
-
-;

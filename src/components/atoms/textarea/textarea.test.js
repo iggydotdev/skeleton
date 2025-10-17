@@ -5,5 +5,3 @@ export const test = () => {
     const expected = '<textarea class="textarea custom-textarea" placeholder="Enter text" id="text-area"/>';
     return actual === expected? true : console.error({actual, expected}) || false;
 };
-
-;

@@ -11,5 +11,3 @@ export const test = () => {
     const expected = '<div class="box cta" role="cta"><p class="text">Text</p><a href="#" class="link">Read More</a></div>';
     return actual === expected? true : console.error({actual, expected}) || false;
 };
-
-;

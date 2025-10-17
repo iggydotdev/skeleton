@@ -5,5 +5,3 @@ export const test = () => {
     const expected = '...expected value goes here...';
     return actual === expected? true : console.error({actual, expected}) || false;
 };
-
-;

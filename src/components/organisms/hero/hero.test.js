@@ -6,5 +6,3 @@ export const test = () => {
     const expected = '<div class="box hero custom-hero" role="hero" data-test="hero"><h1 class="text hero-title">This is the hero section</h1></div>';
     return actual === expected? true : console.error({actual, expected}) || false;
 };
-
-;

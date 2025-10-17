@@ -5,5 +5,3 @@ export const test = () => {
     const expected = '<div class="box customClass">Content</div>';
     return actual === expected? true : console.error({actual, expected}) || false;
 };
-
-;
