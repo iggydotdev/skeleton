@@ -1,40 +1,149 @@
-import { processSlot } from '../../utils/processSlot.js';
-import { validateProps } from '../../utils/validateProps.js';
+import { processSlotTrusted } from '../../../utils/processSlot.js';
+import { normalizeClasses } from '../../../utils/normalizeClasses.js';
+import { validateProps, validatePropTypes, ComponentError } from '../../../utils/ComponentError.js';
+import { escapeAttr } from '../../../utils/escapeHtml.js';
 
 /**
- * Accordion component - Out of the box default accordion (details+summary elements)
- *
- * Renders an HTML details + summary elements with customizable styling, content and attrs 
- * @param {Object} props
- * @property {string} props.attrs - Additional HMTL attributes 
- * @property {string} props.className - Additional CSS classes to apply
- * @property {string | Array<string>} titleSlot - Title content. Could be a string or array of strings property
- * @property {string | Array<string>} detailsSlot - Details content. Could be a string or array of strings property
+ * Accordion component - An HTML details/summary element for collapsible content
  * 
- * @returns {string} - Description of what the function returns
+ * Renders an HTML details element with a summary (clickable header) and collapsible
+ * content. Uses native HTML details/summary for accessibility and no JavaScript required.
+ * Perfect for FAQs, expandable sections, and progressive disclosure patterns.
  * 
- * @throws {ComponentError} If required props are missing or invalidd types provided
+ * @param {Object} props - Component properties
+ * @param {string | Array<string>} props.titleSlot - Summary/header content (always visible)
+ * @param {string | Array<string>} props.detailsSlot - Collapsible content (hidden until expanded)
+ * @param {string} [props.attrs=''] - Additional HTML attributes (e.g., 'open data-section="faq"')
+ * @param {string} [props.className=''] - Additional CSS classes to apply
+ * @param {boolean} [props.open=false] - Whether accordion starts open (expanded)
+ * @param {string} [props.id] - Element ID attribute
+ * @param {string} [props.ariaLabel] - Accessible label for screen readers
+ * 
+ * @returns {string} Rendered HTML details/summary element
+ * 
+ * @throws {ComponentError} If required props (titleSlot, detailsSlot) are missing
  * 
  * @example
- * // Basic Accordion 
+ * // Basic accordion (closed by default)
+ * accordion({
+ *   titleSlot: 'What is Skeleton?',
+ *   detailsSlot: 'Skeleton is a zero-dependency framework for building web applications.'
+ * })
+ * // Returns: '<details class="accordion"><summary>What is Skeleton?</summary>Skeleton is a zero-dependency framework...</details>'
  * 
- * Returns: '<details><summary>Title</summary> Content </details>'
+ * @example
+ * // Accordion open by default
+ * accordion({
+ *   titleSlot: 'Getting Started',
+ *   detailsSlot: '<p>Install with npm: <code>npm install skeleton</code></p>',
+ *   open: true
+ * })
+ * // Returns: '<details class="accordion" open><summary>Getting Started</summary><p>Install with npm: <code>npm install skeleton</code></p></details>'
  * 
-*/
-
-
-
-export const accordion = ({attrs, className, titleSlot, detailsSlot}) => {
-
-    validateProps({ slot }, [slot], {componentName: 'accordion', componentType: 'atom'})
-    validatePropsTypes(
-        {attrs,className, titleSlot, details}, 
-        [{attrs: 'string', className: 'string', titleSlot: 'string', detailsSlot: 'string'}], 
-        {componentName: 'accordion', componentType: 'atom'})
-                                                                                                                                                                                                                           
-    const escapeAttrs = attrs? ` ${escapeAttrs(attrs)}` : ``;
-    const classes =  normalizeClasses(['accordion', className]);
-    titleSlot = processSlot(titleSlot);
-    detailsSlot = processSlot(detailsSlot);
-    return `<details class="${classes}"${escapeAttrs}><summary>${titleSlot}</summary>${detailsSlot}</details>`;
-}
+ * @example
+ * // Accordion with custom styling
+ * accordion({
+ *   titleSlot: 'Advanced Features',
+ *   detailsSlot: 'SSR, SSG, routing, and more...',
+ *   className: 'faq-item highlighted'
+ * })
+ * // Returns: '<details class="accordion faq-item highlighted"><summary>Advanced Features</summary>SSR, SSG, routing, and more...</details>'
+ * 
+ * @example
+ * // Accordion with ID and data attributes
+ * accordion({
+ *   titleSlot: 'Question 1',
+ *   detailsSlot: 'Answer to question 1',
+ *   id: 'faq-1',
+ *   attrs: 'data-category="general"'
+ * })
+ * // Returns: '<details class="accordion" id="faq-1" data-category="general"><summary>Question 1</summary>Answer to question 1</details>'
+ * 
+ * @example
+ * // Accordion with nested HTML content
+ * accordion({
+ *   titleSlot: '<strong>Important Notice</strong>',
+ *   detailsSlot: [
+ *     '<p>This is paragraph 1.</p>',
+ *     '<p>This is paragraph 2.</p>',
+ *     '<ul><li>Point 1</li><li>Point 2</li></ul>'
+ *   ]
+ * })
+ * // Returns: '<details class="accordion"><summary><strong>Important Notice</strong></summary><p>This is paragraph 1.</p>...</details>'
+ * 
+ * @example
+ * // Accessible accordion with aria-label
+ * accordion({
+ *   titleSlot: 'Privacy Settings',
+ *   detailsSlot: 'Manage your privacy preferences here.',
+ *   ariaLabel: 'Privacy settings configuration panel'
+ * })
+ * // Returns: '<details class="accordion" aria-label="Privacy settings configuration panel"><summary>Privacy Settings</summary>Manage your privacy preferences here.</details>'
+ */
+export const accordion = ({
+    titleSlot,
+    detailsSlot,
+    attrs = '',
+    className = '',
+    open = false,
+    id,
+    ariaLabel
+}) => {
+    // Validate required props
+    validateProps(
+        { titleSlot, detailsSlot },
+        ['titleSlot', 'detailsSlot'],
+        { componentName: 'accordion', componentType: 'atom' }
+    );
+    
+    // Validate prop types
+    validatePropTypes(
+        { attrs, className },
+        { 
+            attrs: 'string',
+            className: 'string'
+        },
+        { componentName: 'accordion', componentType: 'atom' }
+    );
+    
+    // Warn if titleSlot is empty (bad UX)
+    if (typeof titleSlot === 'string' && titleSlot.trim().length === 0) {
+        console.warn(
+            `[Skeleton Warning] Accordion has empty titleSlot. ` +
+            `Users need a visible summary/header to click.`
+        );
+    }
+    
+    // Warn if detailsSlot is empty (probably a mistake)
+    if (typeof detailsSlot === 'string' && detailsSlot.trim().length === 0) {
+        console.warn(
+            `[Skeleton Warning] Accordion has empty detailsSlot. ` +
+            `There's no content to expand.`
+        );
+    }
+    
+    // Process attributes
+    const escapedAttrs = attrs ? ` ${escapeAttr(attrs)}` : '';
+    
+    // Add open attribute if true (accordion starts expanded)
+    const openAttr = open ? ' open' : '';
+    
+    // Add id attribute if provided
+    const idAttr = id ? ` id="${escapeAttr(id)}"` : '';
+    
+    // Add aria-label for accessibility if provided
+    const ariaLabelAttr = ariaLabel 
+        ? ` aria-label="${escapeAttr(ariaLabel)}"` 
+        : '';
+    
+    // Normalize and escape classes
+    const classes = normalizeClasses(['accordion', className]);
+    
+    // Process title slot (the summary/header)
+    const titleContent = processSlotTrusted(titleSlot);
+    
+    // Process details slot (the collapsible content)
+    const detailsContent = processSlotTrusted(detailsSlot);
+    
+    return `<details class="${classes}"${idAttr}${openAttr}${ariaLabelAttr}${escapedAttrs}><summary>${titleContent}</summary>${detailsContent}</details>`;
+};
