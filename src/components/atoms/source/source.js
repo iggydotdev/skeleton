@@ -1,6 +1,6 @@
 import { normalizeClasses } from '../../utils/normalizeClasses.js';
-import { validateProps, validatePropTypes, ComponentError } from '../../utils/ComponentError.js';
-import { escapeAttr } from '../../utils/escapeHtml.js';
+import { validateProps, validatePropTypes, createComponentError } from '../../utils/componentError.js';
+import { escapeAttr } from '../../utils/escapeAttr.js';
 
 /**
  * Source component - An HTML source element for media resources
@@ -115,7 +115,7 @@ export const source = ({
     
     // Validate type is either 'image' or 'video'
     if (type !== 'image' && type !== 'video') {
-        throw new ComponentError(
+        throw createComponentError(
             `Invalid type: "${type}". Must be either "image" or "video".`,
             { componentName: 'source', componentType: 'atom', props: { type } }
         );
@@ -123,14 +123,14 @@ export const source = ({
     
     // Validate that appropriate source attribute is provided
     if (type === 'image' && !src) {
-        throw new ComponentError(
+        throw createComponentError(
             'Image sources require a "src" attribute.',
             { componentName: 'source', componentType: 'atom', props: { type, src } }
         );
     }
     
     if (type === 'video' && !srcset) {
-        throw new ComponentError(
+        throw createComponentError(
             'Video sources require a "srcset" attribute.',
             { componentName: 'source', componentType: 'atom', props: { type, srcset } }
         );

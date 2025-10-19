@@ -1,7 +1,7 @@
 import { processSlotTrusted } from '../../utils/processSlot.js';
 import { normalizeClasses } from '../../utils/normalizeClasses.js';
-import { validateProps, validatePropTypes } from '../../../utils/ComponentError.js';
-import { escapeAttr } from '../../../utils/escapeAttr.js';
+import { validateProps, validatePropTypes } from '../../utils/componentError.js';
+import { escapeAttr } from '../../utils/escapeAttr.js';
 
 /**
  * Button component - A clickable button element
@@ -17,7 +17,7 @@ import { escapeAttr } from '../../../utils/escapeAttr.js';
  * 
  * @returns {string} Rendered HTML button element
  * 
- * @throws {ComponentError} If required props are missing or invalid types provided
+ * @throws {createComponentError} If required props are missing or invalid types provided
  * 
  * @example
  * // Basic button

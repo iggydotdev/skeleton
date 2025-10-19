@@ -1,7 +1,7 @@
 import { processSlotTrusted } from '../../utils/processSlot.js';
 import { normalizeClasses } from '../../utils/normalizeClasses.js';
-import { validateProps, validatePropTypes, ComponentError } from '../../utils/ComponentError.js';
-import { escapeAttr } from '../../utils/escapeHtml.js';
+import { validateProps, validatePropTypes, createComponentError } from '../../utils/componentError.js';
+import { escapeAttr } from '../../utils/escapeAttr.js';
 
 /**
  * Accordion component - An HTML details/summary element for collapsible content
@@ -21,7 +21,7 @@ import { escapeAttr } from '../../utils/escapeHtml.js';
  * 
  * @returns {string} Rendered HTML details/summary element
  * 
- * @throws {ComponentError} If required props (titleSlot, detailsSlot) are missing
+ * @throws {createComponentError} If required props (titleSlot, detailsSlot) are missing
  * 
  * @example
  * // Basic accordion (closed by default)

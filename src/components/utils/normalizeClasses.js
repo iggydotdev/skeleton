@@ -1,4 +1,4 @@
-import { escapeAttr } from './escapeHtml.js';
+import { escapeAttr } from './escapeAttr.js';
 
 /**
  * Normalizes CSS class names by removing extra whitespace and duplicates

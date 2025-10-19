@@ -1,7 +1,7 @@
 import { processSlotTrusted } from '../../utils/processSlot.js';
 import { normalizeClasses } from '../../utils/normalizeClasses.js';
-import { validatePropTypes, ComponentError } from '../../../utils/ComponentError.js';
-import { escapeAttr } from '../../utils/escapeHtml.js';
+import { validatePropTypes, createComponentError } from '../../utils/componentError.js';
+import { escapeAttr } from '../../utils/escapeAttr.js';
 
 /**
  * Video component - An HTML video element for embedding video content
@@ -28,7 +28,7 @@ import { escapeAttr } from '../../utils/escapeHtml.js';
  * 
  * @returns {string} Rendered HTML video element
  * 
- * @throws {ComponentError} If prop types are invalid
+ * @throws {createComponentError} If prop types are invalid
  * 
  * @example
  * // Basic video with direct source

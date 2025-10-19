@@ -1,7 +1,7 @@
 import { normalizeClasses } from '../../utils/normalizeClasses.js';
-import { validateProps, validatePropTypes, ComponentError } from '../../utils/ComponentError.js';
-import { escapeAttr, escapeHtml } from '../../../utils/escapeHtml.js';
-
+import { validateProps, validatePropTypes, createComponentError } from '../../utils/componentError.js';
+import { escapeHtml } from '../../utils/escapeHtml.js';
+import { escapeAttr } from '../../utils/escapeAttr.js';
 /**
  * Textarea component - An HTML textarea element for multi-line text input
  * 
@@ -27,7 +27,7 @@ import { escapeAttr, escapeHtml } from '../../../utils/escapeHtml.js';
  * 
  * @returns {string} Rendered HTML textarea element
  * 
- * @throws {ComponentError} If prop types are invalid
+ * @throws {createComponentError} If prop types are invalid
  * 
  * @example
  * // Basic textarea

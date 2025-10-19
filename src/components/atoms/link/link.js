@@ -1,7 +1,7 @@
 import { processSlotTrusted } from '../../utils/processSlot.js';
 import { normalizeClasses } from '../../utils/normalizeClasses.js';
-import { validateProps, validatePropTypes, ComponentError } from '../../utils/ComponentError.js';
-import { escapeAttr } from '../../utils/escapeHtml.js';
+import { validateProps, validatePropTypes, createComponentError } from '../../utils/componentError.js';
+import { escapeAttr } from '../../utils/escapeAttr.js';
 
 /**
  * Link component - An HTML anchor element for navigation
@@ -96,7 +96,7 @@ export const link = ({
     
     // Validate URL is not empty
     if (url.trim().length === 0) {
-        throw new ComponentError(
+        throw createComponentError(
             'URL cannot be empty',
             { componentName: 'link', componentType: 'atom', props: { url, slot } }
         );

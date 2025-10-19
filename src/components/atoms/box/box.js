@@ -1,7 +1,7 @@
 import { normalizeClasses } from '../../utils/normalizeClasses.js';
 import { processSlotTrusted } from '../../utils/processSlot.js';
-import { validateProps, validatePropTypes, ComponentError } from '../../utils/ComponentError.js';
-import { escapeAttr } from '../../utils/escapeHtml.js';
+import { validateProps, validatePropTypes, createComponentError } from '../../utils/componentError.js';
+import { escapeAttr } from '../../utils/escapeAttr.js';
 
 /**
  * Box component - A flexible container element
@@ -21,7 +21,7 @@ import { escapeAttr } from '../../utils/escapeHtml.js';
  * 
  * @returns {string} Rendered HTML container element
  * 
- * @throws {ComponentError} If prop types are invalid
+ * @throws {createComponentError} If prop types are invalid
  * 
  * @example
  * // Basic div container
@@ -99,7 +99,7 @@ export const box = ({
     
     // Validate that 'is' is not empty
     if (is.trim().length === 0) {
-        throw new ComponentError(
+        throw createComponentError(
             'The "is" prop cannot be empty. Specify an HTML tag like "div", "section", "article", etc.',
             { componentName: 'box', componentType: 'atom', props: { is, slot } }
         );
@@ -107,7 +107,7 @@ export const box = ({
     
     // Validate that 'is' contains only valid tag name characters
     if (!/^[a-zA-Z][a-zA-Z0-9-]*$/.test(is)) {
-        throw new ComponentError(
+        throw createComponentError(
             `Invalid HTML tag name: "${is}". Tag names must start with a letter and contain only letters, numbers, and hyphens.`,
             { componentName: 'box', componentType: 'atom', props: { is, slot } }
         );

@@ -1,6 +1,6 @@
 import { normalizeClasses } from '../../utils/normalizeClasses.js';
-import { validateProps, validatePropTypes, ComponentError } from '../../utils/ComponentError.js';
-import { escapeAttr } from '../../utils/escapeHtml.js';
+import { validateProps, validatePropTypes, createComponentError } from '../../utils/componentError.js';
+import { escapeAttr } from '../../utils/escapeAttr.js';
 
 /**
  * Image component - An HTML img element for displaying images
@@ -105,7 +105,7 @@ export const image = ({
     
     // Validate src is not empty
     if (src.trim().length === 0) {
-        throw new ComponentError(
+        throw createComponentError(
             'The "src" prop cannot be empty. Provide a valid image URL or path.',
             { componentName: 'image', componentType: 'atom', props: { src } }
         );

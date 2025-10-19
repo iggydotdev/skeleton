@@ -71,7 +71,7 @@ export const validateProps = (props, required, context) => {
     });
     
     if (missing.length > 0) {
-        throw new ComponentError(
+        throw createComponentError(
             `Missing required props: ${missing.join(', ')}`,
             {
                 ...context,
@@ -114,7 +114,7 @@ export const validatePropTypes = (props, schema, context) => {
     }
     
     if (typeErrors.length > 0) {
-        throw new ComponentError(
+        throw createComponentError(
             `Type validation failed:\n  ${typeErrors.join('\n  ')}`,
             {
                 ...context,
@@ -139,7 +139,7 @@ export const withErrorHandling = (componentFn, context) => {
                 throw error;
             }
             
-            throw new ComponentError(
+            throw createComponentError(
                 `Component rendering failed: ${error.message}`,
                 {
                     ...context,

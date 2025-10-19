@@ -1,7 +1,7 @@
 import { processSlotTrusted } from '../../utils/processSlot.js';
 import { normalizeClasses } from '../../utils/normalizeClasses.js';
-import { validateProps, validatePropTypes, ComponentError } from '../../utils/ComponentError.js';
-import { escapeAttr } from '../../utils/escapeHtml.js';
+import { validateProps, validatePropTypes, createComponentError } from '../../utils/componentError.js';
+import { escapeAttr } from '../../utils/escapeAttr.js';
 
 /**
  * Picture component - An HTML picture element for responsive images
@@ -109,7 +109,7 @@ export const picture = ({
     // Validate slot is not empty
     if ((typeof slot === 'string' && slot.trim().length === 0) || 
         (Array.isArray(slot) && slot.length === 0)) {
-        throw new ComponentError(
+        throw createComponentError(
             'Picture element requires child content (source elements and an img element).',
             { componentName: 'picture', componentType: 'atom', props: { slot } }
         );

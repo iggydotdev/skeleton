@@ -1,7 +1,7 @@
 import { processSlotTrusted } from '../../utils/processSlot.js';
 import { normalizeClasses } from '../../utils/normalizeClasses.js';
-import { validateProps, validatePropTypes, ComponentError } from '../../utils/ComponentError.js';
-import { escapeAttr } from '../../utils/escapeHtml.js';
+import { validateProps, validatePropTypes, createComponentError } from '../../utils/componentError.js';
+import { escapeAttr } from '../../utils/escapeAttr.js';
 
 /**
  * Text component - A flexible text container element
@@ -105,7 +105,7 @@ export const text = ({
     
     // Validate that 'is' is not empty
     if (is.trim().length === 0) {
-        throw new ComponentError(
+        throw createComponentError(
             'The "is" prop cannot be empty. Specify an HTML tag like "p", "h1", "span", etc.',
             { componentName: 'text', componentType: 'atom', props: { is, slot } }
         );
@@ -114,7 +114,7 @@ export const text = ({
     // Validate that 'is' contains only valid tag name characters
     // Allow letters, numbers, and hyphens (for custom elements)
     if (!/^[a-zA-Z][a-zA-Z0-9-]*$/.test(is)) {
-        throw new ComponentError(
+        throw createComponentError(
             `Invalid HTML tag name: "${is}". Tag names must start with a letter and contain only letters, numbers, and hyphens.`,
             { componentName: 'text', componentType: 'atom', props: { is, slot } }
         );
