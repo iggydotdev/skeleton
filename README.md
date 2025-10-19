@@ -80,11 +80,11 @@ Auto-discovers and runs all `.test.js` files.
 // src/skeleton/components/atoms/button/button.js
 import { processSlot } from '../../../utils/processSlot.js';
 
-export const button = ({ type = 'button', attrs, cxs, slot }) => {
+export const button = ({ type = 'button', attrs, className, slot }) => {
     attrs = attrs? ` ${attrs}` : '';
-    cxs = cxs? ` ${cxs}` : '';
+    className = className? ` ${className}` : '';
     slot = processSlot(slot) ?? '';
-    return `<button type="${type}" class="btn${cxs}"${attrs}>${slot}</button>`;
+    return `<button type="${type}" class="btn${className}"${attrs}>${slot}</button>`;
 }
 ```
 
@@ -92,7 +92,7 @@ export const button = ({ type = 'button', attrs, cxs, slot }) => {
 
 ```javascript
 // Standalone
-button({ type: 'submit', slot: 'Click Me', cxs: 'primary' });
+button({ type: 'submit', slot: 'Click Me', className: 'primary' });
 
 // In composition
 {
@@ -101,7 +101,7 @@ button({ type: 'submit', slot: 'Click Me', cxs: 'primary' });
     props: {
         type: 'submit',
         slot: 'Submit',
-        cxs: 'primary'
+        className: 'primary'
     }
 }
 ```
@@ -147,7 +147,7 @@ components/
 
 All components support:
 - **attrs** - Raw HTML attributes (string)
-- **cxs** - CSS classes (string)
+- **className** - CSS classes (string)
 - **slot** - Content (string or array of components)
 
 Some components have additional props:
@@ -246,26 +246,26 @@ node src/skeleton/utils/tester.js
 ### Core Components
 
 #### Atoms
-- **button** - `{ type, slot, cxs, attrs }`
-- **link** - `{ url, slot, cxs, attrs }`
-- **text** - `{ is, slot, cxs, attrs }`
-- **image** - `{ src, cxs, attrs }`
-- **input** - `{ type, cxs, attrs }`
-- **textarea** - `{ cxs, attrs }`
-- **box** - `{ is, slot, cxs, attrs }`
-- **accordion** - `{ titleSlot, detailsSlot, cxs, attrs }`
-- **divider** - `{ cxs, attrs }`
-- **video** - `{ src, slot, cxs, attrs }`
-- **picture** - `{ slot, cxs, attrs }`
+- **button** - `{ type, slot, className, attrs }`
+- **link** - `{ url, slot, className, attrs }`
+- **text** - `{ is, slot, className, attrs }`
+- **image** - `{ src, className, attrs }`
+- **input** - `{ type, className, attrs }`
+- **textarea** - `{ className, attrs }`
+- **box** - `{ is, slot, className, attrs }`
+- **accordion** - `{ titleSlot, detailsSlot, className, attrs }`
+- **divider** - `{ className, attrs }`
+- **video** - `{ src, slot, className, attrs }`
+- **picture** - `{ slot, className, attrs }`
 
 #### Molecules
-- **card** - `{ slot, headerSlot, mediaSlot, linkSlot, contentSlot, cxs, attrs }`
+- **card** - `{ slot, headerSlot, mediaSlot, linkSlot, contentSlot, className, attrs }`
 
 #### Organisms
-- **header** - `{ slot, cxs, attrs }`
-- **footer** - `{ slot, cxs, attrs }`
-- **hero** - `{ slot, cxs, attrs }`
-- **cta** - `{ slot, cxs, attrs }`
+- **header** - `{ slot, className, attrs }`
+- **footer** - `{ slot, className, attrs }`
+- **hero** - `{ slot, className, attrs }`
+- **cta** - `{ slot, className, attrs }`
 
 ### Functions
 
@@ -298,13 +298,13 @@ const route = router(new URL('http://localhost/'), routes);
 
 ### Custom Styling
 
-Since there's no CSS, add styles via attrs or cxs class names ( you will need the global stylesheet. See next):
+Since there's no CSS, add styles via attrs or className class names ( you will need the global stylesheet. See next):
 
 ```javascript
 button({
     slot: 'Styled Button',
     attrs: 'style="background: blue; color: white; padding: 10px;"',
-    cxs: 'btn-blue'
+    className: 'btn-blue'
 })
 ```
 

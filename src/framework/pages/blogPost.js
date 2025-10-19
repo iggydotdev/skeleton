@@ -44,7 +44,7 @@ export const components = (data) => [
             name: 'hero',
             props: {
                 attrs: 'id="main-hero"',
-                cxs: 'main-hero',
+                className: 'main-hero',
                 slot: [
                     {
                         type: 'atom',

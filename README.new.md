@@ -61,10 +61,10 @@ Components are pure JavaScript functions that return HTML strings:
 
 ```javascript
 // Example atom component
-export const button = ({attrs, cxs, slot}) => {
+export const button = ({attrs, className, slot}) => {
     attrs = attrs ? ` ${attrs}` : '';
-    cxs = cxs ? ` ${cxs}` : '';
-    return `<button class="btn${cxs}"${attrs}>${slot}</button>`;
+    className = className ? ` ${className}` : '';
+    return `<button class="btn${className}"${attrs}>${slot}</button>`;
 }
 ```
 
@@ -73,7 +73,7 @@ export const button = ({attrs, cxs, slot}) => {
 | Property | Type | Description | Example |
 |----------|------|-------------|---------|
 | `attrs` | string | HTML attributes | `'id="submit" data-test="true"'` |
-| `cxs` | string | CSS classes | `'primary large'` |
+| `className` | string | CSS classes | `'primary large'` |
 | `slot` | string\|array | Content or children | `'Click me'` or `[{type: 'atom'...}]` |
 
 ### Composition Objects
@@ -86,7 +86,7 @@ const buttonComponent = {
     name: 'button',
     props: {
         slot: 'Submit',
-        cxs: 'primary',
+        className: 'primary',
         attrs: 'type="submit"'
     }
 }
@@ -114,8 +114,8 @@ Generated files:
 Basic building blocks:
 
 ```javascript
-export const button = ({attrs, cxs, slot}) => `
-    <button class="btn${cxs}"${attrs}>${slot}</button>
+export const button = ({attrs, className, slot}) => `
+    <button class="btn${className}"${attrs}>${slot}</button>
 `;
 ```
 
@@ -123,8 +123,8 @@ export const button = ({attrs, cxs, slot}) => `
 Combinations of atoms:
 
 ```javascript
-export const card = ({headerSlot, contentSlot, footerSlot, cxs}) => `
-    <div class="card${cxs}">
+export const card = ({headerSlot, contentSlot, footerSlot, className}) => `
+    <div class="card${className}">
         <div class="card-header">${headerSlot}</div>
         <div class="card-content">${contentSlot}</div>
         <div class="card-footer">${footerSlot}</div>
@@ -136,8 +136,8 @@ export const card = ({headerSlot, contentSlot, footerSlot, cxs}) => `
 Complex UI sections:
 
 ```javascript
-export const header = ({slot, cxs}) => `
-    <header class="header${cxs}">
+export const header = ({slot, className}) => `
+    <header class="header${className}">
         <nav class="nav">${slot}</nav>
     </header>
 `;
@@ -212,7 +212,7 @@ node src/skeleton/utils/tester.js button
 export const test = () => {
     const actual = button({
         slot: 'Click me',
-        cxs: 'primary'
+        className: 'primary'
     });
     const expected = '<button class="btn primary">Click me</button>';
     

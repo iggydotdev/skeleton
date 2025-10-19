@@ -1,7 +1,7 @@
 import { card } from './index.js';
 
 const customCard = () => {
-    const actual = card({attrs: 'id="my-card"', cxs: 'custom-card', slot: '<p>This is a custom card content.</p>'});
+    const actual = card({attrs: 'id="my-card"', className: 'custom-card', slot: '<p>This is a custom card content.</p>'});
     const expected = '<div class="box card custom-card" id="my-card"><p>This is a custom card content.</p></div>';
     return actual === expected? true : console.error({actual, expected}) || false;
 };
@@ -11,7 +11,7 @@ customCard();
 const standardCard = () => {
     const actual = card({
         attrs: 'id="standard-card"',
-        cxs: 'standard-card',
+        className: 'standard-card',
         headerSlot: '<h2>Card Title</h2>',
         mediaSlot: '<img src="image.jpg" alt="Card Image">',
         linkSlot: '<a href="#">Read More</a>',
