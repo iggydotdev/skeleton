@@ -1,6 +1,6 @@
-import { normalizeClasses } from '../../../utils/normalizeClasses.js';
-import { validateProps, validatePropTypes, ComponentError } from '../../../utils/ComponentError.js';
-import { escapeAttr } from '../../../utils/escapeHtml.js';
+import { normalizeClasses } from '../../utils/normalizeClasses.js';
+import { validateProps, validatePropTypes, ComponentError } from '../../utils/ComponentError.js';
+import { escapeAttr } from '../../utils/escapeHtml.js';
 
 /**
  * Image component - An HTML img element for displaying images

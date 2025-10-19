@@ -1,7 +1,7 @@
-import { processSlotTrusted } from '../../../utils/processSlot.js';
-import { normalizeClasses } from '../../../utils/normalizeClasses.js';
-import { validateProps, validatePropTypes, ComponentError } from '../../../utils/ComponentError.js';
-import { escapeAttr } from '../../../utils/escapeHtml.js';
+import { processSlotTrusted } from '../../utils/processSlot.js';
+import { normalizeClasses } from '../../utils/normalizeClasses.js';
+import { validateProps, validatePropTypes, ComponentError } from '../../utils/ComponentError.js';
+import { escapeAttr } from '../../utils/escapeHtml.js';
 
 /**
  * Footer component - A semantic footer element for page/section footers

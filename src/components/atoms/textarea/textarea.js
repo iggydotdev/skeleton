@@ -1,5 +1,5 @@
-import { normalizeClasses } from '../../../utils/normalizeClasses.js';
-import { validateProps, validatePropTypes, ComponentError } from '../../../utils/ComponentError.js';
+import { normalizeClasses } from '../../utils/normalizeClasses.js';
+import { validateProps, validatePropTypes, ComponentError } from '../../utils/ComponentError.js';
 import { escapeAttr, escapeHtml } from '../../../utils/escapeHtml.js';
 
 /**

@@ -1,8 +1,8 @@
 import { box } from '../../atoms/index.js';
-import { processSlotTrusted } from '../../../utils/processSlot.js';
-import { normalizeClasses } from '../../../utils/normalizeClasses.js';
+import { processSlotTrusted } from '../../utils/processSlot.js';
+import { normalizeClasses } from '../../utils/normalizeClasses.js';
 import { validatePropTypes } from '../../../utils/ComponentError.js';
-import { escapeAttr } from '../../../utils/escapeHtml.js';
+import { escapeAttr } from '../../utils/escapeHtml.js';
 
 /**
  * Card component - A flexible content container molecule

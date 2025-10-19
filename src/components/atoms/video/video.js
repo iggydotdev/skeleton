@@ -1,7 +1,7 @@
-import { processSlotTrusted } from '../../../utils/processSlot.js';
-import { normalizeClasses } from '../../../utils/normalizeClasses.js';
+import { processSlotTrusted } from '../../utils/processSlot.js';
+import { normalizeClasses } from '../../utils/normalizeClasses.js';
 import { validatePropTypes, ComponentError } from '../../../utils/ComponentError.js';
-import { escapeAttr } from '../../../utils/escapeHtml.js';
+import { escapeAttr } from '../../utils/escapeHtml.js';
 
 /**
  * Video component - An HTML video element for embedding video content

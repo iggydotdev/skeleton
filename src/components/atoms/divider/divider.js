@@ -1,6 +1,6 @@
-import { normalizeClasses } from '../../../utils/normalizeClasses.js';
+import { normalizeClasses } from '../../utils/normalizeClasses.js';
 import { validatePropTypes } from '../../../utils/ComponentError.js';
-import { escapeAttr } from '../../../utils/escapeHtml.js';
+import { escapeAttr } from '../../utils/escapeHtml.js';
 
 /**
  * Divider component - An HTML hr element for visual content separation

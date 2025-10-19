@@ -1,7 +1,7 @@
-import { normalizeClasses } from '../../../utils/normalizeClasses.js';
-import { processSlotTrusted } from '../../../utils/processSlot.js';
-import { validateProps, validatePropTypes, ComponentError } from '../../../utils/ComponentError.js';
-import { escapeAttr } from '../../../utils/escapeHtml.js';
+import { normalizeClasses } from '../../utils/normalizeClasses.js';
+import { processSlotTrusted } from '../../utils/processSlot.js';
+import { validateProps, validatePropTypes, ComponentError } from '../../utils/ComponentError.js';
+import { escapeAttr } from '../../utils/escapeHtml.js';
 
 /**
  * Box component - A flexible container element

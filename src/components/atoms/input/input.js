@@ -1,6 +1,6 @@
-import { normalizeClasses } from '../../../utils/normalizeClasses.js';
-import { validateProps, validatePropTypes, ComponentError } from '../../../utils/ComponentError.js';
-import { escapeAttr } from '../../../utils/escapeHtml.js';
+import { normalizeClasses } from '../../utils/normalizeClasses.js';
+import { validateProps, validatePropTypes, ComponentError } from '../../utils/ComponentError.js';
+import { escapeAttr } from '../../utils/escapeHtml.js';
 
 /**
  * Input component - An HTML input element for form data collection

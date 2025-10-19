@@ -3,7 +3,18 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Zero-dependency component library and SSR/SSG framework",
-  "main": "src/components/atoms/index.js",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./components": "./src/components/index.js",
+    "./atoms": "./src/components/atoms/index.js",
+    "./molecules": "./src/components/molecules/index.js",
+    "./organisms": "./src/components/organisms/index.js",
+    "./framework": "./src/framework/index.js",
+    "./compose": "./src/framework/compose.js",
+    "./router": "./src/framework/router.js",
+    "./utils": "./src/components/utils/index.js"
+  },
   "scripts": {
     "dev": "node src/framework/index.js",
     "dev:watch": "node --watch src/framework/index.js",
