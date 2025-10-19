@@ -1,6 +1,6 @@
-import {atoms} from '../skeleton/components/atoms/index.js';
-import {molecules} from '../skeleton/components/molecules/index.js';
-import {organisms} from '../skeleton/components/organisms/index.js';
+import {atoms} from '../components/atoms/index.js';
+import {molecules} from '../components/molecules/index.js';
+import {organisms} from '../components/organisms/index.js';
 
 
 // Registry sets to keep track of components

@@ -51,7 +51,7 @@ No npm install needed! Everything runs with Node.js (v24).
 ### 1. Run Development Server (SSR)
 
 ```bash
-node src/flesh/index.js
+node src/framework/index.js
 ```
 
 Visit `http://localhost:3000`
@@ -59,7 +59,7 @@ Visit `http://localhost:3000`
 ### 2. Build Static Site (SSG)
 
 ```bash
-node src/flesh/utils/build/index.js public
+node src/framework/utils/build/index.js public
 ```
 
 Generates HTML files in `public/` directory.
@@ -77,7 +77,7 @@ Auto-discovers and runs all `.test.js` files.
 ### Atoms (Basic Elements)
 
 ```javascript
-// src/skeleton/components/atoms/button/button.js
+// src/components/atoms/button/button.js
 import { processSlot } from '../../../utils/processSlot.js';
 
 export const button = ({ type = 'button', attrs, className, slot }) => {
@@ -161,7 +161,7 @@ Some components have additional props:
 ### Define Routes
 
 ```javascript
-// src/flesh/routes.js
+// src/framework/routes.js
 export const routes = [{
     name: 'Home',
     pattern: new URLPattern({ pathname: '/' }),
@@ -173,7 +173,7 @@ export const routes = [{
 ### Create Page Components
 
 ```javascript
-// src/flesh/pages/home.js
+// src/framework/pages/home.js
 export const components = [
     {
         type: 'organism',
@@ -228,7 +228,7 @@ const html = compose(components);
 Tests are auto-discovered and run:
 
 ```javascript
-// src/skeleton/components/atoms/button/button.test.js
+// src//components/atoms/button/button.test.js
 export const test = () => {
     const actual = button({ type: 'submit', slot: 'Click' });
     const expected = '<button type="submit" class="btn">Click</button>';

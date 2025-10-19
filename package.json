@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Zero-dependency component library and SSR/SSG framework",
-  "main": "src/skeleton/components/atoms/index.js",
+  "main": "src/components/atoms/index.js",
   "scripts": {
     "dev": "node src/framework/index.js",
     "dev:watch": "node --watch src/framework/index.js",
