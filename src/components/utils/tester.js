@@ -7,17 +7,18 @@ const __dirname = dirname(__filename);
 
  
 const tester = () => {
-    const atomsDir = path.join(__dirname, '../components/atoms');
-    const moleculesDdir = path.join(__dirname, '../components/molecules');
-    const organismDir = path.join(__dirname, '../components/organisms');
+    const atomsDir = path.join(__dirname, '../atoms');
+    const moleculesDdir = path.join(__dirname, '../molecules');
+    const organismDir = path.join(__dirname, '../organisms');
     const folders = [atomsDir, moleculesDdir, organismDir];
 
     folders.forEach(folder => {
         try {
             const components = fs.readdirSync(folder).filter(component => component !== 'index.js');
             components.forEach(component => {
+                let testFile 
                 try {
-                    const testFile = fs.readdirSync(path.join(folder,component)).filter(file=> file.includes('test.js'))[0];
+                    testFile = fs.readdirSync(path.join(folder,component)).filter(file=> file.includes('test.js'))[0];
 
                     const testPath = path.join(folder, component, testFile)
                     import(fileURLToPath(testPath)).then(async (module) => {
