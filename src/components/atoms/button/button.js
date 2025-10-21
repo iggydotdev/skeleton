@@ -87,7 +87,7 @@ export const button = ({
     }
     
     // Process attributes
-    const escapedAttrs = attrs ? ` ${escapeAttr(attrs)}` : '';
+    attrs = attrs ? ` ${attrs}` : '';
 
     // Normalize classes
     const classes = normalizeClasses(['btn', className]);
@@ -95,5 +95,5 @@ export const button = ({
     // Process slot content (trust component-rendered HTML)
     const slotContent = processSlotTrusted(slot);
     
-    return `<button type="${escapeAttr(type)}" class="${classes}"${escapedAttrs}>${slotContent}</button>`;
+    return `<button type="${type}" class="${classes}"${attrs}>${slotContent}</button>`;
 };

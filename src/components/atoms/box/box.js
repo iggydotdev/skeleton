@@ -15,10 +15,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @param {string | Array<string>} [props.slot=''] - Box content or child components
  * @param {string} [props.attrs=''] - Additional HTML attributes (e.g., 'data-section="intro" role="region"')
  * @param {string} [props.className=''] - Additional CSS classes to apply
- * @param {string} [props.id] - Element ID attribute
- * @param {string} [props.role] - ARIA role attribute for accessibility
- * @param {string} [props.ariaLabel] - Accessible label for screen readers
- * 
+
  * @returns {string} Rendered HTML container element
  * 
  * @throws {createComponentError} If prop types are invalid
@@ -41,7 +38,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * // Article container with ID
  * box({
  *   is: 'article',
- *   id: 'main-article',
+ *   attrs: 'id="main-article"',
  *   slot: 'Article content here...'
  * })
  * // Returns: '<article class="box" id="main-article">Article content here...</article>'
@@ -50,8 +47,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * // Aside with ARIA role
  * box({
  *   is: 'aside',
- *   role: 'complementary',
- *   ariaLabel: 'Related articles',
+ *   attrs='role="complementary" aria-label="Related articles"',
  *   slot: '<h2>Related</h2><ul>...</ul>'
  * })
  * // Returns: '<aside class="box" role="complementary" aria-label="Related articles"><h2>Related</h2><ul>...</ul></aside>'
@@ -82,9 +78,6 @@ export const box = ({
     slot = '',
     attrs = '',
     className = '',
-    id,
-    role,
-    ariaLabel
 }) => {
     // Validate prop types
     validatePropTypes(
@@ -132,18 +125,7 @@ export const box = ({
     }
     
     // Process attributes
-    const escapedAttrs = attrs ? ` ${escapeAttr(attrs)}` : '';
-    
-    // Add id attribute if provided
-    const idAttr = id ? ` id="${escapeAttr(id)}"` : '';
-    
-    // Add role attribute if provided
-    const roleAttr = role ? ` role="${escapeAttr(role)}"` : '';
-    
-    // Add aria-label for accessibility if provided
-    const ariaLabelAttr = ariaLabel 
-        ? ` aria-label="${escapeAttr(ariaLabel)}"` 
-        : '';
+    attrs = attrs ? ` ${attrs}` : '';
     
     // Normalize and escape classes
     const classes = normalizeClasses(['box', className]);
@@ -151,8 +133,5 @@ export const box = ({
     // Process slot content (trust component-rendered HTML)
     const slotContent = processSlotTrusted(slot);
     
-    // Escape the tag name (defense in depth)
-    const escapedTag = escapeAttr(is);
-    
-    return `<${escapedTag} class="${classes}"${idAttr}${roleAttr}${ariaLabelAttr}${escapedAttrs}>${slotContent}</${escapedTag}>`;
+    return `<${is} class="${classes}"${attrs}>${slotContent}</${is}>`;
 };

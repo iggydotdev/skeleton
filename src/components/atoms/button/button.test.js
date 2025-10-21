@@ -30,7 +30,7 @@ const testDefaultButton = () => {
 const testDisabledButton = () => {
     const actual = button({
         slot: 'Disabled',
-        disabled: true
+        attrs: 'disabled'
     });
     const expected = '<button type="button" class="btn" disabled>Disabled</button>';
     return actual === expected ? true : console.error('testDisabledButton failed:', {actual, expected}) || false;
@@ -40,7 +40,7 @@ const testDisabledButton = () => {
 const testAriaButton = () => {
     const actual = button({
         slot: 'Submit',
-        ariaLabel: 'Submit form'
+        attrs: 'aria-label="Submit form"'
     });
     const expected = '<button type="button" class="btn" aria-label="Submit form">Submit</button>';
     return actual === expected ? true : console.error('testAriaButton failed:', {actual, expected}) || false;

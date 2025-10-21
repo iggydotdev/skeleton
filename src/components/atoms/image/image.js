@@ -14,12 +14,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @param {string} [props.alt=''] - Alternative text for accessibility (highly recommended)
  * @param {string} [props.attrs=''] - Additional HTML attributes (e.g., 'width="800" height="600" loading="lazy"')
  * @param {string} [props.className=''] - Additional CSS classes to apply
- * @param {string} [props.width] - Image width attribute (shorthand for attrs)
- * @param {string} [props.height] - Image height attribute (shorthand for attrs)
- * @param {string} [props.loading] - Loading behavior: 'lazy' or 'eager' (shorthand for attrs)
- * @param {string} [props.srcset] - Responsive image sources for different screen sizes
- * @param {string} [props.sizes] - Image sizes for responsive images (use with srcset)
- * @param {string} [props.title] - Tooltip text on hover
+
  * 
  * @returns {string} Rendered HTML img element (self-closing)
  * 
@@ -38,9 +33,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * image({
  *   src: '/images/hero.jpg',
  *   alt: 'Hero banner',
- *   width: '1200',
- *   height: '400',
- *   loading: 'lazy'
+ *   attrs: 'width: "1200" height: "400" loading: "lazy"'
  * })
  * // Returns: '<img src="/images/hero.jpg" alt="Hero banner" class="image" width="1200" height="400" loading="lazy"/>'
  * 
@@ -57,9 +50,9 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * // Responsive image with srcset
  * image({
  *   src: '/images/photo.jpg',
- *   srcset: '/images/photo-400.jpg 400w, /images/photo-800.jpg 800w, /images/photo-1200.jpg 1200w',
- *   sizes: '(max-width: 600px) 400px, (max-width: 1000px) 800px, 1200px',
- *   alt: 'Responsive image'
+ *   alt: 'Responsive image',
+ *   attrs: 'srcset: "/images/photo-400.jpg 400w, /images/photo-800.jpg 800w, /images/photo-1200.jpg 1200w",\
+ *           sizes: "(max-width: 600px) 400px, (max-width: 1000px) 800px, 1200px",'
  * })
  * // Returns: '<img src="/images/photo.jpg" srcset="..." sizes="..." alt="Responsive image" class="image"/>'
  * 
@@ -74,15 +67,9 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  */
 export const image = ({
     src,
-    alt = '',
+    alt, 
     attrs = '',
     className = '',
-    width,
-    height,
-    loading,
-    srcset,
-    sizes,
-    title
 }) => {
     // Validate required props
     validateProps(
@@ -130,42 +117,10 @@ export const image = ({
     }
     
     // Process attributes
-    const escapedAttrs = attrs ? ` ${escapeAttr(attrs)}` : '';
-    
-    // Add width attribute if provided as separate prop
-    const widthAttr = width ? ` width="${escapeAttr(width)}"` : '';
-    
-    // Add height attribute if provided as separate prop
-    const heightAttr = height ? ` height="${escapeAttr(height)}"` : '';
-    
-    // Add loading attribute if provided (lazy/eager)
-    let loadingAttr = '';
-    if (loading) {
-        if (loading !== 'lazy' && loading !== 'eager') {
-            console.warn(
-                `[Skeleton Warning] Invalid loading value: "${loading}". ` +
-                `Use "lazy" or "eager". Defaulting to browser behavior.`
-            );
-        } else {
-            loadingAttr = ` loading="${escapeAttr(loading)}"`;
-        }
-    }
-    
-    // Add srcset attribute for responsive images
-    const srcsetAttr = srcset ? ` srcset="${escapeAttr(srcset)}"` : '';
-    
-    // Add sizes attribute for responsive images
-    const sizesAttr = sizes ? ` sizes="${escapeAttr(sizes)}"` : '';
-    
-    // Add title attribute for tooltip
-    const titleAttr = title ? ` title="${escapeAttr(title)}"` : '';
+    attrs = attrs ? ` ${attrs}` : '';
     
     // Normalize and escape classes
     const classes = normalizeClasses(['image', className]);
     
-    // Escape the src and alt
-    const escapedSrc = escapeAttr(src);
-    const escapedAlt = escapeAttr(alt);
-    
-    return `<img src="${escapedSrc}" alt="${escapedAlt}" class="${classes}"${widthAttr}${heightAttr}${loadingAttr}${srcsetAttr}${sizesAttr}${titleAttr}${escapedAttrs}/>`;
+    return `<img src="${src}" class="${classes}" alt="${alt}"${attrs}/>`;
 };

@@ -15,9 +15,6 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @param {string | Array<string>} props.detailsSlot - Collapsible content (hidden until expanded)
  * @param {string} [props.attrs=''] - Additional HTML attributes (e.g., 'open data-section="faq"')
  * @param {string} [props.className=''] - Additional CSS classes to apply
- * @param {boolean} [props.open=false] - Whether accordion starts open (expanded)
- * @param {string} [props.id] - Element ID attribute
- * @param {string} [props.ariaLabel] - Accessible label for screen readers
  * 
  * @returns {string} Rendered HTML details/summary element
  * 
@@ -36,7 +33,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * accordion({
  *   titleSlot: 'Getting Started',
  *   detailsSlot: '<p>Install with npm: <code>npm install skeleton</code></p>',
- *   open: true
+ *   attrs: 'open'
  * })
  * // Returns: '<details class="accordion" open><summary>Getting Started</summary><p>Install with npm: <code>npm install skeleton</code></p></details>'
  * 
@@ -54,8 +51,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * accordion({
  *   titleSlot: 'Question 1',
  *   detailsSlot: 'Answer to question 1',
- *   id: 'faq-1',
- *   attrs: 'data-category="general"'
+ *   attrs: 'id="faq-1" data-category="general"'
  * })
  * // Returns: '<details class="accordion" id="faq-1" data-category="general"><summary>Question 1</summary>Answer to question 1</details>'
  * 
@@ -85,9 +81,6 @@ export const accordion = ({
     detailsSlot,
     attrs = '',
     className = '',
-    open = false,
-    id,
-    ariaLabel
 }) => {
     // Validate required props
     validateProps(
@@ -123,18 +116,7 @@ export const accordion = ({
     }
     
     // Process attributes
-    const escapedAttrs = attrs ? ` ${escapeAttr(attrs)}` : '';
-    
-    // Add open attribute if true (accordion starts expanded)
-    const openAttr = open ? ' open' : '';
-    
-    // Add id attribute if provided
-    const idAttr = id ? ` id="${escapeAttr(id)}"` : '';
-    
-    // Add aria-label for accessibility if provided
-    const ariaLabelAttr = ariaLabel 
-        ? ` aria-label="${escapeAttr(ariaLabel)}"` 
-        : '';
+    attrs = attrs ? ` ${attrs}` : '';
     
     // Normalize and escape classes
     const classes = normalizeClasses(['accordion', className]);
@@ -145,5 +127,5 @@ export const accordion = ({
     // Process details slot (the collapsible content)
     const detailsContent = processSlotTrusted(detailsSlot);
     
-    return `<details class="${classes}"${idAttr}${openAttr}${ariaLabelAttr}${escapedAttrs}><summary>${titleContent}</summary>${detailsContent}</details>`;
+    return `<details class="${classes}"${attrs}><summary>${titleContent}</summary>${detailsContent}</details>`;
 };

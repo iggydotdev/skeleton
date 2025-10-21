@@ -1,6 +1,5 @@
 import { normalizeClasses } from '../../utils/normalizeClasses.js';
 import { validatePropTypes } from '../../utils/componentError.js';
-import { escapeAttr } from '../../utils/escapeAttr.js';
 
 /**
  * Divider component - An HTML hr element for visual content separation
@@ -13,9 +12,6 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @param {Object} [props={}] - Component properties (all optional)
  * @param {string} [props.attrs=''] - Additional HTML attributes (e.g., 'data-section="break" aria-hidden="true"')
  * @param {string} [props.className=''] - Additional CSS classes to apply
- * @param {string} [props.id] - Element ID attribute
- * @param {string} [props.role] - ARIA role attribute (default is 'separator' by browser)
- * @param {boolean} [props.decorative=false] - If true, adds aria-hidden="true" for decorative dividers
  * 
  * @returns {string} Rendered HTML hr element (self-closing)
  * 
@@ -32,7 +28,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @example
  * // Divider with ID for styling
  * divider({ 
- *   id: 'main-divider',
+ *   attrs: 'id="main-divider",
  *   className: 'gradient'
  * })
  * // Returns: '<hr class="divider gradient" id="main-divider"/>'
@@ -40,7 +36,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @example
  * // Decorative divider (hidden from screen readers)
  * divider({ 
- *   decorative: true,
+ *   attrs: 'aria-hidden=true',
  *   className: 'fancy-decoration'
  * })
  * // Returns: '<hr class="divider fancy-decoration" aria-hidden="true"/>'
@@ -60,10 +56,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  */
 export const divider = ({
     attrs = '',
-    className = '',
-    id,
-    role,
-    decorative = false
+    className = ''
 } = {}) => {
     // Validate prop types
     validatePropTypes(
@@ -76,20 +69,10 @@ export const divider = ({
     );
     
     // Process attributes
-    const escapedAttrs = attrs ? ` ${escapeAttr(attrs)}` : '';
-    
-    // Add id attribute if provided
-    const idAttr = id ? ` id="${escapeAttr(id)}"` : '';
-    
-    // Add role attribute if provided (browsers default to 'separator')
-    const roleAttr = role ? ` role="${escapeAttr(role)}"` : '';
-    
-    // Add aria-hidden if decorative (hide from screen readers)
-    // Use this for purely visual dividers that don't add semantic meaning
-    const ariaHiddenAttr = decorative ? ' aria-hidden="true"' : '';
+    attrs = attrs ? ` ${attrs}` : '';
     
     // Normalize and escape classes
     const classes = normalizeClasses(['divider', className]);
     
-    return `<hr class="${classes}"${idAttr}${roleAttr}${ariaHiddenAttr}${escapedAttrs}/>`;
+    return `<hr class="${classes}"${attrs}/>`;
 };
