@@ -15,9 +15,6 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @param {string | Array<string>} props.slot - Text content or child components
  * @param {string} [props.attrs=''] - Additional HTML attributes (e.g., 'id="title" data-section="intro"')
  * @param {string} [props.className=''] - Additional CSS classes to apply
- * @param {string} [props.id] - Element ID attribute (shorthand for attrs)
- * @param {string} [props.role] - ARIA role attribute for accessibility
- * @param {string} [props.ariaLabel] - Accessible label for screen readers
  * 
  * @returns {string} Rendered HTML text element
  * 
@@ -42,8 +39,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * text({
  *   is: 'span',
  *   slot: 'Status: Active',
- *   id: 'status',
- *   attrs: 'data-status="active"'
+ *   attrs: 'id="status" data-status="active"'
  * })
  * // Returns: '<span class="text" id="status" data-status="active">Status: Active</span>'
  * 
@@ -52,8 +48,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * text({
  *   is: 'label',
  *   slot: 'Email Address',
- *   attrs: 'for="email-input"',
- *   ariaLabel: 'Enter your email address'
+ *   attrs: 'for="email-input" aria-label="Enter your email address"'
  * })
  * // Returns: '<label class="text" for="email-input" aria-label="Enter your email address">Email Address</label>'
  * 
@@ -80,10 +75,7 @@ export const text = ({
     is,
     slot,
     attrs = '',
-    className = '',
-    id,
-    role,
-    ariaLabel
+    className = ''
 }) => {
     // Validate required props
     validateProps(
@@ -130,27 +122,13 @@ export const text = ({
     }
     
     // Process attributes
-    const escapedAttrs = attrs ? ` ${escapeAttr(attrs)}` : '';
-    
-    // Add id attribute if provided as separate prop
-    const idAttr = id ? ` id="${escapeAttr(id)}"` : '';
-    
-    // Add role attribute if provided
-    const roleAttr = role ? ` role="${escapeAttr(role)}"` : '';
-    
-    // Add aria-label for accessibility if provided
-    const ariaLabelAttr = ariaLabel 
-        ? ` aria-label="${escapeAttr(ariaLabel)}"` 
-        : '';
-    
+    attrs = attrs ? ` ${attrs}` : '';
+        
     // Normalize and escape classes
     const classes = normalizeClasses(['text', className]);
     
     // Process slot content (trust component-rendered HTML)
     const slotContent = processSlotTrusted(slot);
-    
-    // Escape the tag name (defense in depth)
-    const escapedTag = escapeAttr(is);
-    
-    return `<${escapedTag} class="${classes}"${idAttr}${roleAttr}${escapedAttrs}${ariaLabelAttr}>${slotContent}</${escapedTag}>`;
+        
+    return `<${is} class="${classes}"${attrs}>${slotContent}</${is}>`;
 };

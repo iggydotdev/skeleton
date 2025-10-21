@@ -15,10 +15,6 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @param {string} props.slot - Link text or child components
  * @param {string} [props.attrs=''] - Additional HTML attributes (e.g., 'data-track="click"')
  * @param {string} [props.className=''] - Additional CSS classes to apply
- * @param {boolean} [props.external=false] - Whether link opens in new tab (adds target="_blank")
- * @param {string} [props.rel] - Custom rel attribute (overrides default security settings)
- * @param {string} [props.ariaLabel] - Accessible label for screen readers
- * @param {boolean} [props.download=false] - Whether link triggers a download
  * 
  * @returns {string} Rendered HTML anchor element
  * 
@@ -34,7 +30,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * link({ 
  *   url: 'https://example.com',
  *   slot: 'Visit Example',
- *   external: true
+ *   attrs: 'target="_blank" rel="noopener noreferrer"'
  * })
  * // Returns: '<a href="https://example.com" class="link" target="_blank" rel="noopener noreferrer">Visit Example</a>'
  * 
@@ -53,7 +49,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * link({
  *   url: '/profile',
  *   slot: '<img src="avatar.jpg" alt=""/>',
- *   ariaLabel: 'View user profile'
+ *   attrs: 'aria-label="View user profile"'
  * })
  * // Returns: '<a href="/profile" class="link" aria-label="View user profile"><img src="avatar.jpg" alt=""/></a>'
  * 
@@ -62,7 +58,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * link({
  *   url: '/files/document.pdf',
  *   slot: 'Download PDF',
- *   download: true
+ *   attrs: 'download'
  * })
  * // Returns: '<a href="/files/document.pdf" class="link" download>Download PDF</a>'
  */
@@ -70,11 +66,7 @@ export const link = ({
     url,
     slot,
     attrs = '',
-    className = '',
-    external = false,
-    rel,
-    ariaLabel,
-    download = false
+    className = ''
 }) => {
     // Validate required props
     validateProps(
@@ -101,51 +93,15 @@ export const link = ({
             { componentName: 'link', componentType: 'atom', props: { url, slot } }
         );
     }
-    
-    // Security: Warn about potentially dangerous protocols
-    const dangerousProtocols = ['javascript:', 'data:', 'vbscript:'];
-    const urlLower = url.toLowerCase().trim();
-    if (dangerousProtocols.some(protocol => urlLower.startsWith(protocol))) {
-        console.warn(
-            `[Skeleton Warning] Potentially dangerous URL protocol in link: "${url}". ` +
-            `This may pose a security risk (XSS vulnerability).`
-        );
-    }
-    
+      
     // Process attributes
-    const escapedAttrs = attrs ? ` ${escapeAttr(attrs)}` : '';
-    
-    // Handle external links (open in new tab)
-    const targetAttr = external ? ' target="_blank"' : '';
-    
-    // Security: Add rel="noopener noreferrer" for external links to prevent:
-    // - window.opener exploitation (noopener)
-    // - referrer leakage (noreferrer)
-    let relAttr = '';
-    if (rel) {
-        // User provided custom rel, use it
-        relAttr = ` rel="${escapeAttr(rel)}"`;
-    } else if (external) {
-        // Auto-add security attributes for external links
-        relAttr = ' rel="noopener noreferrer"';
-    }
-    
-    // Add download attribute if specified
-    const downloadAttr = download ? ' download' : '';
-    
-    // Add aria-label for accessibility if provided
-    const ariaLabelAttr = ariaLabel 
-        ? ` aria-label="${escapeAttr(ariaLabel)}"` 
-        : '';
+    attrs = attrs ? ` ${attrs}` : '';
     
     // Normalize and escape classes
     const classes = normalizeClasses(['link', className]);
     
     // Process slot content (trust component-rendered HTML)
     const slotContent = processSlotTrusted(slot);
-    
-    // Escape the URL for href attribute
-    const escapedUrl = escapeAttr(url);
-    
-    return `<a href="${escapedUrl}" class="${classes}"${targetAttr}${relAttr}${downloadAttr}${escapedAttrs}${ariaLabelAttr}>${slotContent}</a>`;
+        
+    return `<a href="${url}" class="${classes}"${attrs}>${slotContent}</a>`;
 };

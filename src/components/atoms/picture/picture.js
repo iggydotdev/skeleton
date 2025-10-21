@@ -21,7 +21,6 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @param {string | Array<string>} props.slot - Child content (source elements and required img element)
  * @param {string} [props.attrs=''] - Additional HTML attributes (e.g., 'data-lazy="true"')
  * @param {string} [props.className=''] - Additional CSS classes to apply
- * @param {string} [props.id] - Element ID attribute
  * 
  * @returns {string} Rendered HTML picture element
  * 
@@ -74,8 +73,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @example
  * // Picture with ID and lazy loading
  * picture({
- *   id: 'main-picture',
- *   attrs: 'data-component="responsive-image"',
+ *   attrs: 'id="main-picture" data-component="responsive-image"',
  *   slot: [
  *     '<source srcset="/images/banner.webp" type="image/webp"/>',
  *     '<img src="/images/banner.jpg" alt="Banner" loading="lazy"/>'
@@ -87,7 +85,6 @@ export const picture = ({
     slot,
     attrs = '',
     className = '',
-    id
 }) => {
     // Validate required props
     validateProps(
@@ -143,10 +140,7 @@ export const picture = ({
     }
     
     // Process attributes
-    const escapedAttrs = attrs ? ` ${escapeAttr(attrs)}` : '';
-    
-    // Add id attribute if provided
-    const idAttr = id ? ` id="${escapeAttr(id)}"` : '';
+    attrs = attrs ? ` ${attrs}` : '';
     
     // Normalize and escape classes
     const classes = normalizeClasses(['picture', className]);
@@ -154,5 +148,5 @@ export const picture = ({
     // Process slot content (source and img elements)
     const slotContent = processSlotTrusted(slot);
     
-    return `<picture class="${classes}"${idAttr}${escapedAttrs}>${slotContent}</picture>`;
+    return `<picture class="${classes}"${attrs}>${slotContent}</picture>`;
 };
