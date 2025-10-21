@@ -1,6 +1,6 @@
 import { processSlotTrusted } from '../../utils/processSlot.js';
 import { normalizeClasses } from '../../utils/normalizeClasses.js';
-import { validateProps, validatePropTypes, createComponentError } from '../../utils/componentError.js';
+import { validateProps, validatePropTypes } from '../../utils/componentError.js';
 import { escapeAttr } from '../../utils/escapeAttr.js';
 import { box } from '../../atoms/index.js';
 
@@ -23,13 +23,10 @@ import { box } from '../../atoms/index.js';
  * @param {string | Array<string>} props.slot - Hero content (headline, subheading, image, CTA, etc.)
  * @param {string} [props.attrs=''] - Additional HTML attributes (e.g., 'data-background="dark"')
  * @param {string} [props.className=''] - Additional CSS classes to apply
- * @param {string} [props.id] - Hero section ID attribute
- * @param {string} [props.ariaLabel] - Accessible label for screen readers
- * @param {string} [props.backgroundImage] - Background image URL (added as inline style)
  * 
  * @returns {string} Rendered HTML hero section (div with role="hero")
  * 
- * @throws {ComponentError} If required prop (slot) is missing
+ * @throws {createComponentError} If required prop (slot) is missing
  * 
  * @example
  * // Basic hero with headline and CTA
@@ -60,7 +57,7 @@ import { box } from '../../atoms/index.js';
  * @example
  * // Hero with background image
  * hero({
- *   backgroundImage: '/images/hero-bg.jpg',
+ *   attrs: `style="background-image: url(\'/images/hero-bg.jpg\')"`,
  *   className: 'text-white',
  *   slot: [
  *     '<h1>Adventure Awaits</h1>',
@@ -88,15 +85,14 @@ import { box } from '../../atoms/index.js';
  * @example
  * // Accessible hero with ID and aria-label
  * hero({
- *   id: 'main-hero',
- *   ariaLabel: 'Main page introduction and call to action',
+ *   attrs: 'id="main-hero" aria-label="Main page introduction and call to action"'
  *   slot: [
  *     '<h1>Your Journey Starts Here</h1>',
  *     '<p>Join thousands of users already benefiting</p>',
  *     '<a href="/signup">Sign Up Free</a>'
  *   ]
  * })
- * // Returns: '<div class="box hero" id="main-hero" role="hero" aria-label="Main page introduction and call to action">...</div>'
+ * // Returns: '<div class="box hero" role="hero" id="main-hero" aria-label="Main page introduction and call to action">...</div>'
  * 
  * @example
  * // Minimal hero with just heading
@@ -109,10 +105,7 @@ import { box } from '../../atoms/index.js';
 export const hero = ({
     slot,
     attrs = '',
-    className = '',
-    id,
-    ariaLabel,
-    backgroundImage
+    className = ''
 }) => {
     // Validate required props
     validateProps(
@@ -150,22 +143,7 @@ export const hero = ({
     }
     
     // Process attributes
-    let escapedAttrs = attrs ? ` ${escapeAttr(attrs)}` : '';
-    
-    // Add id attribute if provided
-    const idAttr = id ? ` id="${escapeAttr(id)}"` : '';
-    
-    // Add aria-label for accessibility if provided
-    const ariaLabelAttr = ariaLabel 
-        ? ` aria-label="${escapeAttr(ariaLabel)}"` 
-        : '';
-    
-    // Add background image as inline style if provided
-    let backgroundStyleAttr = '';
-    if (backgroundImage) {
-        const escapedBgImage = escapeAttr(backgroundImage);
-        backgroundStyleAttr = ` style="background-image: url('${escapedBgImage}')"`;
-    }
+    attrs = attrs ? ` ${attrs}` : '';
     
     // Normalize classes - hero class plus any custom classes
     const classes = normalizeClasses(['hero', className]);
@@ -174,7 +152,7 @@ export const hero = ({
     const slotContent = processSlotTrusted(slot);
     
     // Combine all attributes for box
-    const boxAttrs = `role="hero"${idAttr}${ariaLabelAttr}${backgroundStyleAttr}${escapedAttrs}`.trim();
+    const boxAttrs = `role="hero"${attrs}`.trim();
     
     // Use box component as the base
     return box({

@@ -1,7 +1,6 @@
 import { processSlotTrusted } from '../../utils/processSlot.js';
 import { normalizeClasses } from '../../utils/normalizeClasses.js';
-import { validateProps, validatePropTypes, createComponentError } from '../../utils/componentError.js';
-import { escapeAttr } from '../../utils/escapeAttr.js';
+import { validateProps, validatePropTypes } from '../../utils/componentError.js';
 
 /**
  * Footer component - A semantic footer element for page/section footers
@@ -20,13 +19,10 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @param {string | Array<string>} props.slot - Footer content (links, copyright, contact, etc.)
  * @param {string} [props.attrs=''] - Additional HTML attributes (e.g., 'data-theme="dark"')
  * @param {string} [props.className=''] - Additional CSS classes to apply
- * @param {string} [props.id] - Footer ID attribute
- * @param {string} [props.role] - ARIA role attribute (usually 'contentinfo' for main site footer)
- * @param {string} [props.ariaLabel] - Accessible label for screen readers
- * 
+
  * @returns {string} Rendered HTML footer element
  * 
- * @throws {ComponentError} If required prop (slot) is missing
+ * @throws {createComponentError} If required prop (slot) is missing
  * 
  * @example
  * // Basic site footer with copyright
@@ -38,7 +34,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @example
  * // Main site footer with contentinfo role
  * footer({
- *   role: 'contentinfo',
+ *   attrs: 'role="contentinfo"',
  *   className: 'site-footer',
  *   slot: [
  *     '<div class="footer-links">',
@@ -91,7 +87,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @example
  * // Footer with social links and ID
  * footer({
- *   id: 'main-footer',
+ *   attrs: 'id="main-footer",
  *   className: 'social-footer',
  *   slot: [
  *     '<div class="social-links">',
@@ -106,7 +102,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @example
  * // Accessible footer with aria-label
  * footer({
- *   ariaLabel: 'Site footer with links and information',
+ *   attrs: 'aria-label="Site footer with links and information"',
  *   slot: [
  *     '<nav aria-label="Footer navigation">',
  *     '  <a href="/sitemap">Sitemap</a>',
@@ -120,10 +116,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
 export const footer = ({
     slot,
     attrs = '',
-    className = '',
-    id,
-    role,
-    ariaLabel
+    className = ''
 }) => {
     // Validate required props
     validateProps(
@@ -161,24 +154,13 @@ export const footer = ({
     }
     
     // Process attributes
-    const escapedAttrs = attrs ? ` ${escapeAttr(attrs)}` : '';
-    
-    // Add id attribute if provided
-    const idAttr = id ? ` id="${escapeAttr(id)}"` : '';
-    
-    // Add role attribute if provided
-    const roleAttr = role ? ` role="${escapeAttr(role)}"` : '';
-    
-    // Add aria-label for accessibility if provided
-    const ariaLabelAttr = ariaLabel 
-        ? ` aria-label="${escapeAttr(ariaLabel)}"` 
-        : '';
-    
+    attrs = attrs ? ` ${attrs}` : '';
+        
     // Normalize and escape classes
     const classes = normalizeClasses(['footer', className]);
     
     // Process slot content
     const slotContent = processSlotTrusted(slot);
     
-    return `<footer class="${classes}"${idAttr}${roleAttr}${ariaLabelAttr}${escapedAttrs}>${slotContent}</footer>`;
+    return `<footer class="${classes}"${attrs}>${slotContent}</footer>`;
 };

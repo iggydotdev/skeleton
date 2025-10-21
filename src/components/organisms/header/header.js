@@ -1,7 +1,6 @@
 import { processSlotTrusted } from '../../utils/processSlot.js';
 import { normalizeClasses } from '../../utils/normalizeClasses.js';
-import { validateProps, validatePropTypes, createComponentError } from '../../utils/componentError.js';
-import { escapeAttr } from '../../utils/escapeAttr.js';
+import { validateProps, validatePropTypes } from '../../utils/componentError.js';
 
 /**
  * Header component - A semantic header element for page/section headers
@@ -20,9 +19,6 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @param {string | Array<string>} props.slot - Header content (logo, nav, actions, etc.)
  * @param {string} [props.attrs=''] - Additional HTML attributes (e.g., 'data-sticky="true"')
  * @param {string} [props.className=''] - Additional CSS classes to apply
- * @param {string} [props.id] - Header ID attribute
- * @param {string} [props.role] - ARIA role attribute (usually 'banner' for main site header)
- * @param {string} [props.ariaLabel] - Accessible label for screen readers
  * 
  * @returns {string} Rendered HTML header element
  * 
@@ -45,7 +41,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @example
  * // Main site header with banner role
  * header({
- *   role: 'banner',
+ *   attrs: 'role="banner"',
  *   className: 'site-header',
  *   slot: [
  *     '<div class="logo">Brand</div>',
@@ -69,9 +65,8 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @example
  * // Sticky header with ID
  * header({
- *   id: 'main-header',
  *   className: 'sticky',
- *   attrs: 'data-sticky="true"',
+ *   attrs: 'id="main-header" data-sticky="true"',
  *   slot: '<nav>Navigation content</nav>'
  * })
  * // Returns: '<header class="header sticky" id="main-header" data-sticky="true"><nav>Navigation content</nav></header>'
@@ -79,7 +74,7 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * @example
  * // Accessible header with aria-label
  * header({
- *   ariaLabel: 'Main site navigation',
+ *   attrs: 'aria-label="Main site navigation"',
  *   slot: [
  *     '<a href="/">Home</a>',
  *     '<a href="/products">Products</a>',
@@ -103,9 +98,6 @@ export const header = ({
     slot,
     attrs = '',
     className = '',
-    id,
-    role,
-    ariaLabel
 }) => {
     // Validate required props
     validateProps(
@@ -143,18 +135,7 @@ export const header = ({
     }
     
     // Process attributes
-    const escapedAttrs = attrs ? ` ${escapeAttr(attrs)}` : '';
-    
-    // Add id attribute if provided
-    const idAttr = id ? ` id="${escapeAttr(id)}"` : '';
-    
-    // Add role attribute if provided
-    const roleAttr = role ? ` role="${escapeAttr(role)}"` : '';
-    
-    // Add aria-label for accessibility if provided
-    const ariaLabelAttr = ariaLabel 
-        ? ` aria-label="${escapeAttr(ariaLabel)}"` 
-        : '';
+    attrs = attrs ? ` ${attrs}` : '';
     
     // Normalize and escape classes
     const classes = normalizeClasses(['header', className]);
@@ -162,5 +143,5 @@ export const header = ({
     // Process slot content
     const slotContent = processSlotTrusted(slot);
     
-    return `<header class="${classes}"${idAttr}${roleAttr}${ariaLabelAttr}${escapedAttrs}>${slotContent}</header>`;
+    return `<header class="${classes}"${attrs}>${slotContent}</header>`;
 };
