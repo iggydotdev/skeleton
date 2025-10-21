@@ -10,18 +10,10 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * text, email, password, number, date, checkbox, radio, file, and more.
  * 
  * @param {Object} props - Component properties
- * @param {string} [props.type='text'] - Input type (text, email, password, number, tel, url, search, date, time, checkbox, radio, file, etc.)
+ * @param {string} props.type - Input type (text, email, password, number, tel, url, search, date, time, checkbox, radio, file, etc.)
  * @param {string} [props.attrs=''] - Additional HTML attributes (e.g., 'placeholder="Enter text" required')
  * @param {string} [props.className=''] - Additional CSS classes to apply
- * @param {string} [props.id] - Input ID attribute (important for labels)
- * @param {string} [props.name] - Input name attribute (important for forms)
- * @param {string} [props.value] - Input value attribute
- * @param {string} [props.placeholder] - Placeholder text
- * @param {boolean} [props.required=false] - Whether input is required
- * @param {boolean} [props.disabled=false] - Whether input is disabled
- * @param {boolean} [props.readonly=false] - Whether input is read-only
- * @param {string} [props.ariaLabel] - Accessible label for screen readers
- * @param {string} [props.ariaDescribedBy] - ID of element describing this input
+
  * 
  * @returns {string} Rendered HTML input element (self-closing)
  * 
@@ -29,83 +21,62 @@ import { escapeAttr } from '../../utils/escapeAttr.js';
  * 
  * @example
  * // Basic text input
- * input({ type: 'text', name: 'username', placeholder: 'Enter username' })
- * // Returns: '<input type="text" name="username" placeholder="Enter username" class="input"/>'
+ * input({ type: 'text', attrs:'name="username" placeholder="Enter username"'})
+ * // Returns: '<input type="text" class="input" name="username" placeholder="Enter username"/>'
  * 
  * @example
  * // Email input with validation
  * input({
  *   type: 'email',
- *   name: 'email',
- *   id: 'email-field',
- *   placeholder: 'your@email.com',
- *   required: true
+ *   attrs: 'name="email" id="email-field" placeholder="your@email.com" required'
  * })
- * // Returns: '<input type="email" name="email" id="email-field" placeholder="your@email.com" class="input" required/>'
+ * // Returns: '<input type="email" class="input" name="email" id="email-field" placeholder="your@email.com" required/>'
  * 
  * @example
  * // Password input with custom class
  * input({
  *   type: 'password',
- *   name: 'password',
  *   className: 'secure-input',
- *   attrs: 'minlength="8" autocomplete="new-password"'
+ *   attrs:'name="password" minlength="8" autocomplete="new-password"'
  * })
- * // Returns: '<input type="password" name="password" class="input secure-input" minlength="8" autocomplete="new-password"/>'
+ * // Returns: '<input type="password" class="input secure-input" name="password"  minlength="8" autocomplete="new-password"/>'
  * 
  * @example
  * // Number input with min/max
  * input({
  *   type: 'number',
- *   name: 'age',
- *   value: '25',
- *   attrs: 'min="0" max="120" step="1"'
+ *   attrs: 'name="age" value="25" min="0" max="120" step="1"'
  * })
- * // Returns: '<input type="number" name="age" value="25" class="input" min="0" max="120" step="1"/>'
+ * // Returns: '<input type="number" class="input" name="age" value="25" min="0" max="120" step="1"/>'
  * 
  * @example
  * // Checkbox input
  * input({
  *   type: 'checkbox',
- *   name: 'terms',
- *   id: 'terms-checkbox',
- *   value: 'accepted',
- *   attrs: 'checked'
+ *   attrs: 'name="terms" id="terms-checkbox" value="accepted" checked'
  * })
- * // Returns: '<input type="checkbox" name="terms" id="terms-checkbox" value="accepted" class="input" checked/>'
+ * // Returns: '<input type="checkbox" class="input" name="terms" id="terms-checkbox" value="accepted" checked/>'
  * 
  * @example
  * // File input with accept
  * input({
  *   type: 'file',
- *   name: 'avatar',
- *   attrs: 'accept="image/png, image/jpeg"'
+ *   attrs: 'name="avatar" accept="image/png, image/jpeg"'
  * })
- * // Returns: '<input type="file" name="avatar" class="input" accept="image/png, image/jpeg"/>'
+ * // Returns: '<input type="file" class="input" name="avatar" accept="image/png, image/jpeg"/>'
  * 
  * @example
  * // Accessible input with ARIA
  * input({
  *   type: 'text',
- *   name: 'search',
- *   ariaLabel: 'Search products',
- *   ariaDescribedBy: 'search-help'
+ *   attrs: 'name="search" aria-label="Search products" aria-describedby="search-help"'
  * })
- * // Returns: '<input type="text" name="search" class="input" aria-label="Search products" aria-describedby="search-help"/>'
+ * // Returns: '<input type="text" class="input" name="search" aria-label="Search products" aria-describedby="search-help"/>'
  */
 export const input = ({
     type = 'text',
     attrs = '',
-    className = '',
-    id,
-    name,
-    value,
-    placeholder,
-    required = false,
-    disabled = false,
-    readonly = false,
-    ariaLabel,
-    ariaDescribedBy
+    className = ''
 }) => {
     // Validate prop types
     validatePropTypes(
@@ -134,61 +105,11 @@ export const input = ({
         );
     }
     
-    // Warn if name is missing (forms need names to submit data)
-    if (!name && type !== 'button' && type !== 'submit' && type !== 'reset') {
-        console.warn(
-            `[Skeleton Warning] Input of type "${type}" is missing a "name" attribute. ` +
-            `Form inputs need names to submit data properly.`
-        );
-    }
-    
-    // Warn if checkbox/radio is missing value
-    if ((type === 'checkbox' || type === 'radio') && !value) {
-        console.warn(
-            `[Skeleton Warning] ${type} input is missing a "value" attribute. ` +
-            `Checkbox and radio inputs should have explicit values.`
-        );
-    }
-    
     // Process attributes
-    const escapedAttrs = attrs ? ` ${escapeAttr(attrs)}` : '';
-    
-    // Add id attribute if provided
-    const idAttr = id ? ` id="${escapeAttr(id)}"` : '';
-    
-    // Add name attribute if provided
-    const nameAttr = name ? ` name="${escapeAttr(name)}"` : '';
-    
-    // Add value attribute if provided
-    const valueAttr = value ? ` value="${escapeAttr(value)}"` : '';
-    
-    // Add placeholder attribute if provided
-    const placeholderAttr = placeholder ? ` placeholder="${escapeAttr(placeholder)}"` : '';
-    
-    // Add required attribute if true
-    const requiredAttr = required ? ' required' : '';
-    
-    // Add disabled attribute if true
-    const disabledAttr = disabled ? ' disabled' : '';
-    
-    // Add readonly attribute if true
-    const readonlyAttr = readonly ? ' readonly' : '';
-    
-    // Add aria-label for accessibility if provided
-    const ariaLabelAttr = ariaLabel 
-        ? ` aria-label="${escapeAttr(ariaLabel)}"` 
-        : '';
-    
-    // Add aria-describedby for accessibility if provided
-    const ariaDescribedByAttr = ariaDescribedBy 
-        ? ` aria-describedby="${escapeAttr(ariaDescribedBy)}"` 
-        : '';
+    attrs = attrs ? ` ${attrs}` : '';
     
     // Normalize and escape classes
     const classes = normalizeClasses(['input', className]);
     
-    // Escape the type
-    const escapedType = escapeAttr(type);
-    
-    return `<input type="${escapedType}" class="${classes}"${nameAttr}${idAttr}${valueAttr}${placeholderAttr}${requiredAttr}${disabledAttr}${readonlyAttr}${ariaLabelAttr}${ariaDescribedByAttr}${escapedAttrs}/>`;
+    return `<input type="${type}" class="${classes}"${attrs}/>`;
 };
