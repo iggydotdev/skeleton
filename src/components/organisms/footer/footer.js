@@ -146,7 +146,7 @@ export const footer = ({
     
     // Info: Suggest using role="contentinfo" for main site footer
     const slotString = Array.isArray(slot) ? slot.join('') : slot;
-    if ((slotString.includes('©') || slotString.includes('copyright')) && !role) {
+    if ((slotString.includes('©') || slotString.includes('copyright'))) {
         console.info(
             `[Skeleton Info] Main site footer with copyright/site info should have role="contentinfo" ` +
             `for better accessibility.`
