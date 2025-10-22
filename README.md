@@ -357,13 +357,13 @@ Generate new components quickly using the built-in generator:
 
 ```bash
 # Create an atom
-node src/skeleton/utils/generator/index.js atom my-button
+node src/components/utils/generator/index.js atom my-button
 
 # Create a molecule
-node src/skeleton/utils/generator/index.js molecule my-card
+node src/components/utils/generator/index.js molecule my-card
 
 # Create an organism
-node src/skeleton/utils/generator/index.js organism my-header
+node src/components/utils/generator/index.js organism my-header
 ```
 
 The generator creates:
@@ -483,7 +483,7 @@ export const test = () => {
 
 Run all tests:
 ```bash
-node src/skeleton/utils/tester.js
+node src/components/utils/tester.js
 ```
 
 ## API Reference
@@ -597,12 +597,12 @@ MIT - See LICENSE file
 ## Contributing
 
 Contributions welcome! Please ensure:
-- All tests pass: `node src/skeleton/utils/tester.js`
+- All tests pass: `node src/components/utils/tester.js`
 - New components follow the pattern
 - JSDoc comments included
 
 ## Known Issues (v1)
-- Some test are not great. We will leverage node:test in upcoming versions.
+- Some tests are not great. We will leverage node:test in upcoming versions.
 - Some components have many individual props (refactoring to attrs object)
 - Component generator has an issue where componentName and componentType are being replace several times. It will be addresses.
 
@@ -612,13 +612,13 @@ We're aware of these and they'll be addressed in the next release.
 ## Before we wrap up. 
 This is just an attempt to do something different. I am not replacing anything I am just proposing another way. I think we have for quite some time overengineered solutions that give us more headaches than anything else. We need to question our choices and ask ourselves: "Is this really worth it"?
 
-Obviously contributions are welcome. If you think that you have a better approach propose it but remember this has 0 depedencies, and its core feature is that is easy to understand. 
+Obviously contributions are welcome. If you think that you have a better approach propose it but remember this has 0 dependencies, and its core feature is that is easy to understand. 
 
 If you are reading at this point I really appreciate it. 
 If you think this is useful let me know. 
 If you learn a thing or two with this, let me also know. 
 
-Let make this something useful for everyone.
+Let's make this something useful for everyone.
 
 Many Thanks!
 Iggy
